@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-text="http://www.w3.org/1999/xhtml" xmlns:v-txt="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+  <script src="jQuery.js"></script>
+  <script src="payment.js"></script>
+  <script src="uikit.js"></script>
+  <script src="SubmissionData.js"></script>
+  <title>inventorysfc</title>
+</head>
+<body class="tm-sidebar-b-right tm-sidebars-1  tm-isblog">
+<div class="zopim" __jx__id="___$_72 ___$_72"
+     style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; padding: 0px; border: 0px; background: transparent; overflow: hidden; position: fixed; z-index: 16000002; width: 180px; height: 30px; right: 10px; bottom: 0px; display: none;"
+     data-test-id="ChatWidgetButton">
+  <iframe frameborder="0"
+          style="background-color: transparent; vertical-align: text-bottom; position: relative; width: 100%; height: 100%; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; margin: 0px; overflow: hidden; display: block;"
+          src="about:blank" data-test-id="ChatWidgetButton-iframe" title="Zendesk Chat widget button"></iframe>
+</div>
+<div class="zopim" __jx__id="___$_4 ___$_4"
+     style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; padding: 0px; border: 0px; background: transparent; overflow: hidden; position: fixed; z-index: 16000001; right: 10px; bottom: 0px; border-top-left-radius: 5px; border-top-right-radius: 5px; display: none; width: 350px; height: 450px; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 3px 2px;"
+     data-test-id="ChatWidgetWindow">
+  <iframe frameborder="0"
+          style="background-color: transparent; vertical-align: text-bottom; position: relative; width: 100%; height: 100%; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; margin: 0px; overflow: hidden; display: block;"
+          src="about:blank" data-test-id="ChatWidgetWindow-iframe" title="Zendesk Chat widget window"></iframe>
+</div>
+
+<div class="tm-toolbar uk-visible-large">
+  <div class="uk-container uk-container-center uk-clearfix">
+
+    <div class="uk-float-left">
+      <div class="uk-panel">
+        <i class="uk-text-small">"An Angel Baby's Cuddle Sent To A Family In Need"</i></div>
+    </div>
+
+    <div class="uk-float-right">
+      <div class="uk-panel">
+        <a href="/account" class="uk-margin-right uk-icon-hover uk-icon-user uk-text-small" title="My Account Login">
+          <span style="font-family:'Lato';"> My Account</span></a> <a href="https://www.facebook.com/MollyBearsOrg"
+                                                                      class="uk-margin-right uk-icon-hover uk-icon-facebook"
+                                                                      title="Molly Bears Facebook" target="_blank"></a>
+        <a href="https://twitter.com/mollybearsorg" class="uk-margin-right uk-icon-hover uk-icon-twitter"
+           title="Molly Bears Twitter" target="_blank"></a> <a href="https://www.instagram.com/mollybearsorg"
+                                                               class="uk-margin-right uk-icon-hover uk-icon-instagram"
+                                                               title="Molly Bears Instagram" target="_blank"></a> <a
+        href="https://www.youtube.com/user/mollybearsorg" class="uk-margin-right uk-icon-hover uk-icon-youtube-play"
+        title="Molly Bears YouTube" target="_blank"></a></div>
+    </div>
+  </div>
+</div>
+
+<div class="uk-sticky-placeholder" style="height: 94px; margin: 0px 0px 25px;">
+  <div class="tm-navbar" data-uk-sticky="{media: 768}" style="margin: 0px;">
+
+    <div class="uk-navbar">
+      <div class="tm-headerbar tm-headerbar-default uk-container uk-container-center uk-flex uk-flex-space-between">
+        <div class="uk-flex uk-flex-middle">
+
+          <a class="tm-logo uk-visible-large" href="https://mollybears.site">
+            <img src="/images/Logos/Molly-Bears-Logo.svg" width="270" height="86" alt="Molly Bears" title="Molly Bears"></a>
+
+          <a class="tm-logo-small uk-hidden-large" href="https://mollybears.site">
+            <img src="/images/Logos/Molly-Bears-Logo.svg" width="270" height="86" alt="Molly Bears"></a>
+
+          <nav class="uk-visible-large">
+            <ul class="uk-navbar-nav uk-hidden-small">
+              <li class="uk-parent" data-uk-dropdown="{'preventflip':'y'}" aria-haspopup="true" aria-expanded="false"><a
+                href="/our-story/molly-bears-story">Our Story</a>
+                <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2 uk-dropdown-bottom"
+                     style="min-width: 480px; max-width: 480px; width: 240px; top: 90px; left: 0px;" aria-hidden="true"
+                     tabindex="">
+                  <div class="uk-grid uk-dropdown-grid">
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/our-story/molly-bears-story"><i class="uk-icon-book"></i> Molly Bears Story
+                          <div>The Story of Molly Christine</div>
+                        </a></li>
+                        <li><a href="/our-story/molly-bears-team"><i class="uk-icon-group"></i> Molly Bears Team
+                          <div>Meet Our Team</div>
+                        </a></li>
+                      </ul>
+                    </div>
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/our-story/our-process"><i class="uk-icon-cogs"></i> Our Process
+                          <div>How to Get a Molly Bear</div>
+                        </a></li>
+                        <li><a href="/our-story/testimonials"><i class="uk-icon-bullhorn"></i> Testimonials
+                          <div>View Molly Bears Stories</div>
+                        </a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="uk-parent" data-uk-dropdown="{'preventflip':'y'}" aria-haspopup="true" aria-expanded="false"><a
+                href="/order">Get a Bear</a>
+                <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2"
+                     style="min-width: 480px; max-width: 480px; width:240px;">
+                  <div class="uk-grid uk-dropdown-grid">
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/order"><i class="uk-icon-paw"></i> Bear Sign-up
+                          <div>Get Your Molly Bear</div>
+                        </a></li>
+                        <li><a href="/get-a-bear/tracking-bears"><i class="uk-icon-dropbox"></i> Tracking Bears
+                          <div>Search Order Status</div>
+                        </a></li>
+                        <li><a href="/get-a-bear/edit-bear-orders"><i class="uk-icon-lock"></i> Edit Bear Orders
+                          <div>Bear Makers Only</div>
+                        </a></li>
+                        <li><a href="/get-a-bear/bear-maker-orders"><i class="uk-icon-lock"></i> My Bear Orders
+                          <div>Bear Makers Only</div>
+                        </a></li>
+                      </ul>
+                    </div>
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/get-a-bear/edit-hospital-orders"><i class="uk-icon-lock"></i> Edit Hospital Orders
+                          <div>Bear Makers Only</div>
+                        </a></li>
+                        <li><a href="/get-a-bear/edit-molly-bear-reorders"><i class="uk-icon-lock"></i> Edit Molly Bear
+                          Reorders
+                          <div>Bear Makers Only</div>
+                        </a></li>
+                        <li><a href="/get-a-bear/add-bear-orders"><i class="uk-icon-lock"></i> Add Bear Orders
+                          <div>Admins Only</div>
+                        </a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li><a href="/gallery">Gallery</a></li>
+              <li class="uk-parent" data-uk-dropdown="{'preventflip':'y'}" aria-haspopup="true" aria-expanded="false"><a
+                href="/donate">Donations</a>
+                <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2">
+                  <div class="uk-grid uk-dropdown-grid">
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/donate">Ways to Support Molly Bears</a></li>
+                        <li><a href="/donate/donate">Donate</a></li>
+                        <li><a href="/donate/donors-list">Donors List</a></li>
+                        <li><a href="/donate/certificate">Certificate</a></li>
+                      </ul>
+                    </div>
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/donate/rewards-program">Rewards Program</a></li>
+                        <li><a href="/donate/express-pass">Express Pass</a></li>
+                        <li><a href="/donate/molly-bear-reorders">Molly Bear Reorders</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="uk-parent" data-uk-dropdown="{'preventflip':'y'}" aria-haspopup="true" aria-expanded="false"><a
+                href="/contact/contact-us">Contact</a>
+                <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2">
+                  <div class="uk-grid uk-dropdown-grid">
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/contact/contact-us">Contact Us</a></li>
+                        <li><a href="/contact/volunteer">Volunteer</a></li>
+                        <li><a href="/contact/faqs">FAQs</a></li>
+                      </ul>
+                    </div>
+                    <div class="uk-width-1-2">
+                      <ul class="uk-nav uk-nav-navbar">
+                        <li><a href="/contact/useful-links">Useful Links</a></li>
+                        <li><a href="/contact/testimonial">Testimonial</a></li>
+                        <li><a href="/contact/reference-materials">Reference Materials</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="uk-flex uk-flex-middle uk-flex-right">
+          <div class="uk-visible-large">
+
+            <form id="search-164-5d5bab8cb84ba" class="uk-search" action="/smart-search" method="get">
+              <input class="uk-search-field" type="text" name="q" placeholder="search..." autocomplete="off">
+            </form>
+          </div>
+        </div>
+
+        <a href="#offcanvas" class="uk-navbar-toggle uk-hidden-large" data-uk-offcanvas=""></a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div class="uk-container uk-container-center">
+  <div id="tm-main" class="uk-grid" data-uk-grid-match data-uk-grid-margin>
+
+    <div class="uk-panel uk-panel-box uk-width-large-3-4 uk-flex-order-last uk-row-first" style="padding: 50px;">
+      <main id="tm-content" class="tm-content">
+        <ul class="uk-breadcrumb">
+          <li><a href="/">Home</a>
+          </li>
+          <li class="uk-active"><span>Molly Bears Order Confirmation</span></li>
+        </ul>
+        <div id="system-message-container">
+        </div>
+        <div id="App"></div>
+      </main>
+    </div>
+
+
+    <aside class="tm-sidebar-b uk-width-large-1-4 uk-flex-order-last" style="min-height: 3432px;">
+      <div class="uk-panel uk-panel-box uk-panel-box-secondary uk-contrast small-padding-box"><h3
+        class="uk-h4 uk-margin-top-remove"><i class="uk-icon-clock-o"></i> Order Form Opens</h3>
+        <div class="smartcountdown" id="smartcountdown-170" style="font-size: 11.0179px; cursor: default;">
+          <div id="smartcountdown-170-loading" class="spinner" style="display: none;"></div>
+          <div class="scd-all-wrapper" style="text-align: center; display: block;">
+            <div class="scd-title scd-title-col clearfix" id="smartcountdown-170-title-before" style="font-size:2em;">
+              <h4>Oct. 30th @ 7:00PM (EST)</h4></div>
+            <div class="scd-counter scd-counter-col clearfix">
+              <div id="smartcountdown-170-years" class="scd-unit scd-unit-horz" style="display:none;">
+                <div class="scd-digits scd-digits-col" id="smartcountdown-170-years-digits"></div>
+                <div class="scd-label scd-label-col" id="smartcountdown-170-years-label"
+                     style="font-size:1.1666666666667em;"></div>
+              </div>
+              <div id="smartcountdown-170-months" class="scd-unit scd-unit-horz" style="display:none;">
+                <div class="scd-digits scd-digits-col" id="smartcountdown-170-months-digits"></div>
+                <div class="scd-label scd-label-col" id="smartcountdown-170-months-label"
+                     style="font-size:1.1666666666667em;"></div>
+              </div>
+              <div id="smartcountdown-170-weeks" class="scd-unit scd-unit-horz" style="display:none;">
+                <div class="scd-digits scd-digits-col" id="smartcountdown-170-weeks-digits"></div>
+                <div class="scd-label scd-label-col" id="smartcountdown-170-weeks-label"
+                     style="font-size:1.1666666666667em;"></div>
+              </div>
+              <div id="smartcountdown-170-days" class="scd-unit scd-unit-horz">
+                <div class="scd-digits scd-digits-col" id="smartcountdown-170-days-digits">
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">2</div>
+                  </div>
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">0</div>
+                  </div>
+                </div>
+                <div class="scd-label scd-label-col" id="smartcountdown-170-days-label"
+                     style="font-size: 1.16667em; min-width: 3.64286em;">Days
+                </div>
+              </div>
+              <div id="smartcountdown-170-hours" class="scd-unit scd-unit-horz">
+                <div class="scd-digits scd-digits-col" id="smartcountdown-170-hours-digits">
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">1</div>
+                  </div>
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">2</div>
+                  </div>
+                </div>
+                <div class="scd-label scd-label-col" id="smartcountdown-170-hours-label"
+                     style="font-size: 1.16667em; min-width: 3.64286em;">Hours
+                </div>
+              </div>
+              <div id="smartcountdown-170-minutes" class="scd-unit scd-unit-horz">
+                <div class="scd-digits scd-digits-col" id="smartcountdown-170-minutes-digits">
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">2</div>
+                  </div>
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">7</div>
+                  </div>
+                </div>
+                <div class="scd-label scd-label-col" id="smartcountdown-170-minutes-label"
+                     style="font-size: 1.16667em; min-width: 3.64286em;">Minutes
+                </div>
+              </div>
+              <div id="smartcountdown-170-seconds" class="scd-unit scd-unit-horz">
+                <div class="scd-digits scd-digits-col" id="smartcountdown-170-seconds-digits">
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">2</div>
+                  </div>
+                  <div class="scd-digit" style="font-size: 2.66667em; height: 1em; line-height: 1em; width: 0.6em;">
+                    <div style="left: 0px; right: 0px; margin: 0px auto; text-align: center;">3</div>
+                  </div>
+                </div>
+                <div class="scd-label scd-label-col" id="smartcountdown-170-seconds-label"
+                     style="font-size: 1.16667em; min-width: 3.64286em;">Seconds
+                </div>
+              </div>
+            </div>
+            <div class="scd-title scd-title-col clearfix" id="smartcountdown-170-title-after"
+                 style="font-size:1.6666666666667em;"><h4>This Month We Will Accept 150 Orders.</h4></div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="uk-panel uk-panel-box"><h3 class="uk-panel-title">Account Login</h3>
+
+        <form class="uk-form" method="post">
+
+          <div class="uk-form-row">
+            Hi Jon,
+          </div>
+
+          <div class="uk-form-row">
+            <button class="uk-button uk-button-primary" value="Log out" name="Submit" type="submit">Log out</button>
+          </div>
+
+          <input type="hidden" name="option" value="com_users">
+          <input type="hidden" name="task" value="user.logout">
+          <input type="hidden" name="return" value="aW5kZXgucGhwP0l0ZW1pZD0xMDE=">
+          <input type="hidden" name="e7d3e6484c1064dee6afab897e16184e" value="1"></form>
+
+      </div>
+      <div class="uk-panel">
+        <div class="uk-position-relative" data-uk-slideshow="">
+
+          <ul class="uk-slideshow tm-twitter-monday" style="height: 523px;">
+            <li data-slideshow-slide="html" aria-hidden="false" class="uk-active" style="height: 523px;">
+              <div class="uk-panel uk-panel-box uk-flex uk-flex-column uk-height-1-1 uk-text-center">
+
+                <i class="uk-icon uk-icon-medium uk-icon-twitter"></i>
+
+                <div class="uk-flex-item-auto uk-margin-large">
+                  <blockquote>
+                    Support us with a fundraiser today:
+                    <a href="https://www.facebook.com/fund/MollyBearsOrg/">facebook.com/fund/MollyBear…</a>
+
+                    It's quick! Takes only a few seconds to start.
+                    It's easy! Help raise money with just the "share" button.
+                    No fees! Molly Bears... <a href="https://www.facebook.com/MollyBearsOrg/posts/2380693078647625">facebook.com/MollyBearsOrg/…</a>
+                  </blockquote>
+
+
+                  <p>
+                    <a class="" href="https://twitter.com/MollyBearsOrg/status/1125469534402564096" target="_blank">Open
+                      in Twitter</a>
+                  </p>
+                </div>
+
+                <div class="tm-panel-teaser-bottom uk-text-center">
+                  <span class="tm-twitter-subtitle">Latest Tweets</span>
+
+                  <h4 class="tm-twitter-title uk-margin-small-top"><a class="uk-link-reset"
+                                                                      href="https://twitter.com/MollyBearsOrg/status/1125469534402564096"
+                                                                      target="_blank">@MollyBearsOrg</a></h4>
+                </div>
+
+              </div>
+            </li>
+            <li data-slideshow-slide="html" aria-hidden="true" style="height: 523px;">
+              <div class="uk-panel uk-panel-box uk-flex uk-flex-column uk-height-1-1 uk-text-center">
+
+                <i class="uk-icon uk-icon-medium uk-icon-twitter"></i>
+
+                <div class="uk-flex-item-auto uk-margin-large">
+                  <blockquote>
+                    Today is Bereaved Mothers day and we want you to know we remember. We know your grief, we know your
+                    pain, and we know your love.
+
+                    We will be giving away 6 Express passes tonight at 10pm Eastern time. Share the... <a
+                    href="https://www.facebook.com/115238031859819/posts/2379258698791063/">facebook.com/11523803185981…</a>
+                  </blockquote>
+
+
+                  <p>
+                    <a class="" href="https://twitter.com/MollyBearsOrg/status/1125133505170694150" target="_blank">Open
+                      in Twitter</a>
+                  </p>
+                </div>
+
+                <div class="tm-panel-teaser-bottom uk-text-center">
+                  <span class="tm-twitter-subtitle">Latest Tweets</span>
+
+                  <h4 class="tm-twitter-title uk-margin-small-top"><a class="uk-link-reset"
+                                                                      href="https://twitter.com/MollyBearsOrg/status/1125133505170694150"
+                                                                      target="_blank">@MollyBearsOrg</a></h4>
+                </div>
+
+              </div>
+            </li>
+            <li data-slideshow-slide="html" aria-hidden="true" style="height: 523px;">
+              <div class="uk-panel uk-panel-box uk-flex uk-flex-column uk-height-1-1 uk-text-center">
+
+                <i class="uk-icon uk-icon-medium uk-icon-twitter"></i>
+
+                <div class="uk-flex-item-auto uk-margin-large">
+                  <blockquote>
+                    We received over $1,600 through Facebook Fundraisers in the month of April! THANK YOU FOR YOUR
+                    SUPPORT!
+
+                    Even better, 100% of donations made through Facebook go directly to bear making, Facebook doesn't
+                    charge any... <a href="https://www.facebook.com/MollyBearsOrg/posts/2372446286138971">facebook.com/MollyBearsOrg/…</a>
+                  </blockquote>
+
+
+                  <p>
+                    <a class="" href="https://twitter.com/MollyBearsOrg/status/1123596683265433605" target="_blank">Open
+                      in Twitter</a>
+                  </p>
+                </div>
+
+                <div class="tm-panel-teaser-bottom uk-text-center">
+                  <span class="tm-twitter-subtitle">Latest Tweets</span>
+
+                  <h4 class="tm-twitter-title uk-margin-small-top"><a class="uk-link-reset"
+                                                                      href="https://twitter.com/MollyBearsOrg/status/1123596683265433605"
+                                                                      target="_blank">@MollyBearsOrg</a></h4>
+                </div>
+
+              </div>
+            </li>
+            <li data-slideshow-slide="html" aria-hidden="true" style="height: 523px;">
+              <div class="uk-panel uk-panel-box uk-flex uk-flex-column uk-height-1-1 uk-text-center">
+
+                <i class="uk-icon uk-icon-medium uk-icon-twitter"></i>
+
+                <div class="uk-flex-item-auto uk-margin-large">
+                  <blockquote>
+                    Our order form is now open! We will be accepting 150 new orders!
+
+                    Details about our process can be found here: <a href="https://mollybears.org/our-story/our-process">mollybears.org/our-story/our-…</a>
+
+                    You can place your order here: <a href="https://mollybears.org/order">mollybears.org/order</a> <a
+                    href="https://mollybears.org/our-story/our-process">mollybears.org/our-story/our-…</a></blockquote>
+
+
+                  <p>
+                    <a class="" href="https://twitter.com/MollyBearsOrg/status/1123191239904563200" target="_blank">Open
+                      in Twitter</a>
+                  </p>
+                </div>
+
+                <div class="tm-panel-teaser-bottom uk-text-center">
+                  <span class="tm-twitter-subtitle">Latest Tweets</span>
+
+                  <h4 class="tm-twitter-title uk-margin-small-top"><a class="uk-link-reset"
+                                                                      href="https://twitter.com/MollyBearsOrg/status/1123191239904563200"
+                                                                      target="_blank">@MollyBearsOrg</a></h4>
+                </div>
+
+              </div>
+            </li>
+            <li data-slideshow-slide="html" aria-hidden="true" style="height: 523px;">
+              <div class="uk-panel uk-panel-box uk-flex uk-flex-column uk-height-1-1 uk-text-center">
+
+                <i class="uk-icon uk-icon-medium uk-icon-twitter"></i>
+
+                <div class="uk-flex-item-auto uk-margin-large">
+                  <blockquote>
+                    Support through Volunteering!
+                    Join our team: <a href="https://mollybears.org/volunteer">mollybears.org/volunteer</a> <a
+                    href="https://www.facebook.com/MollyBearsOrg/videos/424481434976277/">facebook.com/MollyBearsOrg/…</a>
+                  </blockquote>
+
+
+                  <p>
+                    <a class="" href="https://twitter.com/MollyBearsOrg/status/1115933730663731200" target="_blank">Open
+                      in Twitter</a>
+                  </p>
+                </div>
+
+                <div class="tm-panel-teaser-bottom uk-text-center">
+                  <span class="tm-twitter-subtitle">Latest Tweets</span>
+
+                  <h4 class="tm-twitter-title uk-margin-small-top"><a class="uk-link-reset"
+                                                                      href="https://twitter.com/MollyBearsOrg/status/1115933730663731200"
+                                                                      target="_blank">@MollyBearsOrg</a></h4>
+                </div>
+
+              </div>
+            </li>
+            <li data-slideshow-slide="html" aria-hidden="true" style="height: 523px;">
+              <div class="uk-panel uk-panel-box uk-flex uk-flex-column uk-height-1-1 uk-text-center">
+
+                <i class="uk-icon uk-icon-medium uk-icon-twitter"></i>
+
+                <div class="uk-flex-item-auto uk-margin-large">
+                  <blockquote>
+                    Do you work for a hospital or within a support group that supports grieving families? We have
+                    materials available for your patients.
+
+                    You can order them free of charge from our website: <a
+                    href="https://mollybears.org/contact/reference-materials">mollybears.org/contact/refere…</a> <a
+                    href="https://mollybears.org/contact/reference-materials">mollybears.org/contact/refere…</a>
+                  </blockquote>
+
+
+                  <p>
+                    <a class="" href="https://twitter.com/MollyBearsOrg/status/1112760194654760960" target="_blank">Open
+                      in Twitter</a>
+                  </p>
+                </div>
+
+                <div class="tm-panel-teaser-bottom uk-text-center">
+                  <span class="tm-twitter-subtitle">Latest Tweets</span>
+
+                  <h4 class="tm-twitter-title uk-margin-small-top"><a class="uk-link-reset"
+                                                                      href="https://twitter.com/MollyBearsOrg/status/1112760194654760960"
+                                                                      target="_blank">@MollyBearsOrg</a></h4>
+                </div>
+
+              </div>
+            </li>
+          </ul>
+
+          <div class="uk-overlay-panel uk-overlay-bottom">
+            <ul class="uk-dotnav uk-flex-center">
+              <li data-uk-slideshow-item="0" class="uk-active"><a href="#">Slideshow</a></li>
+              <li data-uk-slideshow-item="1" class=""><a href="#">Slideshow</a></li>
+              <li data-uk-slideshow-item="2" class=""><a href="#">Slideshow</a></li>
+              <li data-uk-slideshow-item="3" class=""><a href="#">Slideshow</a></li>
+              <li data-uk-slideshow-item="4" class=""><a href="#">Slideshow</a></li>
+              <li data-uk-slideshow-item="5" class=""><a href="#">Slideshow</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </aside>
+
+
+  </div>
+
+
+  <section id="tm-bottom-d" class="tm-bottom-d uk-grid uk-grid-collapse"
+           data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin="">
+    <div class="uk-width-1-1 uk-row-first">
+      <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-header">
+        <h4><a href="/donate" class="uk-button uk-button-large uk-width-100">Help Us Get A Molly Bear inTO MORE FAMILIES&nbsp;-
+          Donate Today</a></h4></div>
+      <div class="uk-panel">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="tm-block-footer" class=" uk-block-secondary tm-block-padding-large uk-block tm-block-footer-bg">
+  <div class="uk-container uk-container-center">
+    <section class=" tm-block-footer uk-grid uk-grid-large" data-uk-grid-match="{target:'> div > .uk-panel'}"
+             data-uk-grid-margin="">
+      <div class="uk-width-1-1 uk-width-medium-2-4 uk-row-first">
+        <div class="uk-panel" style="min-height: 451px;"><h3 class="uk-h2 uk-margin-top-remove">Molly Bears</h3>
+          <div class="uk-text-muted uk-margin-right-large">
+            <p class="uk-margin-large-top">Welcome to our Molly Bears Family. We are saddened over the loss of each
+              precious child and strive to bring hope and healing.</p>
+            <p>We create weighted teddy bears for families coping with any form of infant loss. Molly Bears is here to
+              serve as a community of support and comfort. We'll be here for you, we know you'll be here for us too.</p>
+            <p>To receive your very own personal Molly Bear, fill out the <a href="/order" rel="alternate">order
+              form</a> when it is opened each month.</p>
+            <div class="item-separator"></div>
+          </div>
+          <div class="uk-margin-large-top">
+            <h3 class="uk-h5 uk-margin-bottom">Follow Us On</h3>
+            <a href="https://www.facebook.com/MollyBearsOrg"
+               class="uk-margin-right uk-icon-large uk-icon-hover uk-icon-facebook" title="Molly Bears Facebook"
+               target="_blank"></a> <a href="https://twitter.com/mollybearsorg"
+                                       class="uk-margin-right uk-icon-large uk-icon-hover uk-icon-twitter"
+                                       title="Molly Bears Twitter" target="_blank"></a> <a
+            href="https://www.instagram.com/mollybearsorg"
+            class="uk-margin-right uk-icon-large uk-icon-hover uk-icon-instagram" title="Molly Bears Instagram"
+            target="_blank"></a> <a href="https://www.youtube.com/user/mollybearsorg"
+                                    class="uk-margin-right uk-icon-large uk-icon-hover uk-icon-youtube-play"
+                                    title="Molly Bears YouTube" target="_blank"></a> <span class="uk-float-right"><a
+            href="/account" class="uk-margin-right uk-icon-large uk-icon-hover uk-icon-user" title="My Account"> <span
+            style="font-family:'Lato';"> My Account</span></a></span></div>
+        </div>
+      </div>
+
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+        <div class="uk-panel uk-panel-box uk-panel-header" style="min-height: 391px;"><h3 class="uk-panel-title"><i
+          class="uk-icon-newspaper-o"></i> News &amp; Events</h3>
+
+          <ul class="tm-list-monday uk-list uk-list-space ">
+
+
+            <li class="tm-tag-1">
+
+              <a class="uk-display-block uk-link-muted" href="/news/40-new-molly-bear-process">
+
+                <div class="uk-grid uk-grid-small">
+                  <div class="uk-width-2-5 ">
+                    <img src="/images/News/2018-New-Bear-Process.jpg" alt="New Molly Bear Process"></div>
+                  <div class="uk-width-3-5 uk-flex-item-1">
+
+                    <span class="uk-badge uk-display-block">News</span>
+
+                    New Molly Bear Process
+                  </div>
+                </div>
+
+              </a>
+
+            </li>
+
+
+            <li class="tm-tag-1">
+
+              <a class="uk-display-block uk-link-muted" href="/news/39-8-years-of-hope-and-healing">
+
+                <div class="uk-grid uk-grid-small">
+                  <div class="uk-width-2-5 ">
+                    <img src="/images/News/2018-8-Years-of-Molly-Bears.jpg" alt="8 Years of Hope and Healing"></div>
+                  <div class="uk-width-3-5 uk-flex-item-1">
+
+                    <span class="uk-badge uk-display-block">News</span>
+
+                    8 Years of Hope and Heali...
+                  </div>
+                </div>
+
+              </a>
+
+            </li>
+
+
+            <li class="tm-tag-2">
+
+              <a class="uk-display-block uk-link-muted" href="/news/35-12-days-of-christmas-2017">
+
+                <div class="uk-grid uk-grid-small">
+                  <div class="uk-width-2-5 ">
+                    <img src="/images/News/2017-Molly-Bears-12-Days-of-Christmas.jpg" alt="12 Days of Christmas 2017">
+                  </div>
+                  <div class="uk-width-3-5 uk-flex-item-1">
+
+                    <span class="uk-badge uk-display-block">Event</span>
+
+                    12 Days of Christmas 2017
+                  </div>
+                </div>
+
+              </a>
+
+            </li>
+
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+        <div class="uk-panel" style="min-height: 451px;"><h3 class="uk-panel-title"><i class="uk-icon-instagram"></i> MB
+          on Instagram</h3><br>
+
+          <div id="wk-gride4b" class="uk-grid-width-1-3 uk-grid uk-grid-match uk-grid-small "
+               data-uk-grid-match="{target:'> div > .uk-panel', row:true}" data-uk-grid-margin="">
+
+
+            <div class="uk-row-first">
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div>
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/d844cfce0cc0dd8c9b20122ccf636fab/5DDC444C/t51.2885-15/sh0.08/e35/s640x640/44630718_2405544652820649_8897146564929102724_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="Happy Thanksgiving from our families to yours.
+Praying your day is filled with love, peace and comfort.
+
+Hugs,
+The Molly Bears Team"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div>
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/c28c1d9032de123e7afdc3fa1904290a/5E0DFEFE/t51.2885-15/e35/43766447_856086194781863_7826225067352781643_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="We are excited to announce the photos that will appear on the back cover of our 2019 Community Calendar!
+There is still space to add your Molly Bear photo today!
+
+Https://mollybears.org/shop/calendar-pre-order"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="uk-grid-margin uk-row-first">
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/c8a13db361a3efbf4331804a45908f29/5DF36FC8/t51.2885-15/sh0.08/e35/s640x640/44564673_886687018385793_2092466968189678274_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="We are excited to start announcing winners for our calendar cover contest!
+
+Out of over 100 entries, we've been able to determine 7 photos to use on next year's front cover.  We will announce them here, one at a time.  In the next couple of days we will finalize additional winners for the back cover.
+We would like to ask that all those that participated PLEASE consider purchasing a photo slot within the Calendar!! https://mollybears.org/shop/calendar-pre-order"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="uk-grid-margin">
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/0e547aa89a477e36a31f6b98a36211fd/5DF0929D/t51.2885-15/sh0.08/e35/c180.0.720.720a/s640x640/43378039_2234786420066059_8453926681311487094_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="We are excited to start announcing winners for our calendar cover contest!
+
+Out of over 100 entries, we've been able to determine 7 photos to use on next year's front cover.  We will announce them here, one at a time.  In the next couple of days we will finalize additional winners for the back cover.
+We would like to ask that all those that participated PLEASE consider purchasing a photo slot within the Calendar!! https://mollybears.org/shop/calendar-pre-order"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="uk-grid-margin">
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/18defb9647f3fc045660e567b0d35bfb/5DF658BD/t51.2885-15/sh0.08/e35/c108.0.864.864a/s640x640/43252088_1935719783188673_12044919502144249_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="We are excited to start announcing winners for our calendar cover contest!
+
+Out of over 100 entries, we've been able to determine 7 photos to use on next year's front cover.  We will announce them here, one at a time.  In the next couple of days we will finalize additional winners for the back cover.
+We would like to ask that all those that participated PLEASE consider purchasing a photo slot within the Calendar!! https://mollybears.org/shop/calendar-pre-order"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="uk-grid-margin uk-row-first">
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/e9862d35cb23aca89c40a2405726269a/5DE0876C/t51.2885-15/sh0.08/e35/c179.0.721.721a/s640x640/42420378_304739053587466_2491496412301814009_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="We are excited to start announcing winners for our calendar cover contest!
+
+Out of over 100 entries, we've been able to determine 7 photos to use on next year's front cover.  We will announce them here, one at a time.  In the next couple of days we will finalize additional winners for the back cover.
+We would like to ask that all those that participated PLEASE consider purchasing a photo slot within the Calendar!! https://mollybears.org/shop/calendar-pre-order"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="uk-grid-margin">
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/671ffac43cae83fc606a003e7783a710/5DE38D43/t51.2885-15/sh0.08/e35/c180.0.720.720a/s640x640/43175533_1998184413575940_3494825151261344728_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="We are excited to start announcing winners for our calendar cover contest!
+
+Out of over 100 entries, we've been able to determine 7 photos to use on next year's front cover.  We will announce them here, one at a time.  In the next couple of days we will finalize additional winners for the back cover.
+We would like to ask that all those that participated PLEASE consider purchasing a photo slot within the Calendar!! https://mollybears.org/shop/calendar-pre-order"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="uk-grid-margin">
+
+              <div class="uk-panel" style="min-height: 83px;">
+
+                <div class="uk-panel-teaser">
+
+                  <figure class="uk-overlay uk-overlay-hover uk-border-rounded">
+
+                    <div class="uk-overlay-panel uk-overlay-background uk-overlay-fade"></div>
+
+                    <div class="uk-overlay-panel uk-overlay-icon uk-overlay-fade"></div>
+
+                    <a class="uk-position-cover"
+                       href="https://scontent-dfw5-2.cdninstagram.com/vp/ead9aeec5c6c65c5934ec384a06e6d8d/5DF20E99/t51.2885-15/sh0.08/e35/c178.0.723.723a/s640x640/43416395_177764533148250_5920452434952335102_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com"
+                       data-lightbox-type="image" data-uk-lightbox="{group:'.wk-1e4b'}" title="We are excited to start announcing winners for our calendar cover contest!
+
+Out of over 100 entries, we've been able to determine 7 photos to use on next year's front cover.  We will announce them here, one at a time.  In the next couple of days we will finalize additional winners for the back cover.
+We would like to ask that all those that participated PLEASE consider purchasing a photo slot within the Calendar!! https://mollybears.org/shop/calendar-pre-order"></a>
+
+                  </figure>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <script>
+            (function ($) {
+
+              // get the images of the gallery and replace it by a canvas of the same size to fix the problem with overlapping images on load.
+              $('img[width][height]:not(.uk-overlay-panel)', $('#wk-gride4b')).each(function () {
+
+                var $img = $(this);
+
+                if (this.width == 'auto' || this.height == 'auto' || !$img.is(':visible')) {
+                  return;
+                }
+
+                var $canvas = $('<canvas class="uk-responsive-width"></canvas>').attr({
+                    width: $img.attr('width'),
+                    height: $img.attr('height')
+                  }),
+                  img = new Image,
+                  release = function () {
+                    $canvas.remove();
+                    $img.css('display', '');
+                    release = function () {
+                    };
+                  };
+
+                $img.css('display', 'none').after($canvas);
+
+                $(img).on('load', function () {
+                  release();
+                });
+                setTimeout(function () {
+                  release();
+                }, 1000);
+
+                img.src = this.src;
+
+              });
+
+            })(jQuery);
+          </script>
+          <br> <a href="https://www.instagram.com/mollybearsorg"
+                  class="uk-button uk-width-100 uk-button-primary uk-button-mini" target="_blank">Follow Molly Bears on
+            Instagram</a></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+
+<footer id="tm-footer" class="tm-footer uk-position-relative ">
+
+  <div class="uk-container uk-container-center">
+
+    <div class="uk-flex uk-flex-middle uk-flex-space-between uk-text-center-small">
+
+      <div class="tm-footer-left">
+        <div class="uk-panel">
+          <p>Copyright © 2019&nbsp;<a href="https://mollybears.org" title="Molly Bears">Molly Bears</a> &nbsp;|&nbsp;
+            All Rights Reserved &nbsp;|&nbsp; 501(c)(3) Organization &nbsp;|&nbsp; <a href="/sitemap" title="Sitemap">Sitemap</a>
+            &nbsp;|&nbsp; <a href="/privacy-policy" title="Privacy Policy and Terms &amp; Conditions">Privacy Policy</a>
+            &nbsp;|&nbsp; <a href="/terms-and-conditions" title="Privacy Policy and Terms &amp; Conditions"
+                             rel="alternate">Terms &amp; Conditions</a><span> &nbsp;|&nbsp; </span>Designed By:&nbsp;<a
+              href="https://joshgilson.com" title="Designed By: JoshGilson.com" target="_blank">JoshGilson.com</a></p>
+        </div>
+      </div>
+
+      <a class="tm-totop-scroller" data-uk-smooth-scroll="" href="#"></a>
+
+      <div class="tm-footer-right">
+      </div>
+
+
+    </div>
+
+  </div>
+
+</footer>
+
+<div id="offcanvas" class="uk-offcanvas">
+  <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
+    <div class="uk-panel">
+      <p><a href="https://www.mollybears.org" rel="alternate" title="Molly Bears"><img
+        src="/images/Logos/Molly-Bears-Logo.svg" width="270" height="86" alt="Molly Bears" title="Molly Bears"
+        style="display: block; margin-left: auto; margin-right: auto;"></a></p></div>
+    <div class="uk-panel">
+      <form id="search-166-5d5bab8dea3f4" class="uk-search" action="/smart-search" method="get">
+        <input class="uk-search-field" type="text" name="q" placeholder="search..." autocomplete="off">
+      </form>
+    </div>
+    <ul class="uk-nav uk-nav-offcanvas">
+      <li class="uk-parent"><a href="/our-story/molly-bears-story">Our Story</a>
+        <ul class="uk-nav-sub">
+          <li><a href="/our-story/molly-bears-story"><i class="uk-icon-book"></i> Molly Bears Story
+            <div>The Story of Molly Christine</div>
+          </a></li>
+          <li><a href="/our-story/molly-bears-team"><i class="uk-icon-group"></i> Molly Bears Team
+            <div>Meet Our Team</div>
+          </a></li>
+          <li><a href="/our-story/our-process"><i class="uk-icon-cogs"></i> Our Process
+            <div>How to Get a Molly Bear</div>
+          </a></li>
+          <li><a href="/our-story/testimonials"><i class="uk-icon-bullhorn"></i> Testimonials
+            <div>View Molly Bears Stories</div>
+          </a></li>
+        </ul>
+      </li>
+      <li class="uk-parent"><a href="/order">Get a Bear</a>
+        <ul class="uk-nav-sub">
+          <li><a href="/order"><i class="uk-icon-paw"></i> Bear Sign-up
+            <div>Get Your Molly Bear</div>
+          </a></li>
+          <li><a href="/get-a-bear/tracking-bears"><i class="uk-icon-dropbox"></i> Tracking Bears
+            <div>Search Order Status</div>
+          </a></li>
+          <li><a href="/get-a-bear/edit-bear-orders"><i class="uk-icon-lock"></i> Edit Bear Orders
+            <div>Bear Makers Only</div>
+          </a></li>
+          <li><a href="/get-a-bear/bear-maker-orders"><i class="uk-icon-lock"></i> My Bear Orders
+            <div>Bear Makers Only</div>
+          </a></li>
+          <li><a href="/get-a-bear/edit-hospital-orders"><i class="uk-icon-lock"></i> Edit Hospital Orders
+            <div>Bear Makers Only</div>
+          </a></li>
+          <li><a href="/get-a-bear/edit-molly-bear-reorders"><i class="uk-icon-lock"></i> Edit Molly Bear Reorders
+            <div>Bear Makers Only</div>
+          </a></li>
+          <li><a href="/get-a-bear/add-bear-orders"><i class="uk-icon-lock"></i> Add Bear Orders
+            <div>Admins Only</div>
+          </a></li>
+        </ul>
+      </li>
+      <li><a href="/gallery">Gallery</a></li>
+      <li class="uk-parent"><a href="/donate">Donations</a>
+        <ul class="uk-nav-sub">
+          <li><a href="/donate">Ways to Support Molly Bears</a></li>
+          <li><a href="/donate/donate">Donate</a></li>
+          <li><a href="/donate/donors-list">Donors List</a></li>
+          <li><a href="/donate/certificate">Certificate</a></li>
+          <li><a href="/donate/rewards-program">Rewards Program</a></li>
+          <li><a href="/donate/express-pass">Express Pass</a></li>
+          <li><a href="/donate/molly-bear-reorders">Molly Bear Reorders</a></li>
+        </ul>
+      </li>
+      <li class="uk-parent"><a href="/contact/contact-us">Contact</a>
+        <ul class="uk-nav-sub">
+          <li><a href="/contact/contact-us">Contact Us</a></li>
+          <li><a href="/contact/volunteer">Volunteer</a></li>
+          <li><a href="/contact/faqs">FAQs</a></li>
+          <li><a href="/contact/useful-links">Useful Links</a></li>
+          <li><a href="/contact/testimonial">Testimonial</a></li>
+          <li><a href="/contact/reference-materials">Reference Materials</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="uk-panel"><h3 class="uk-panel-title">Get Our App</h3>
+      <div class="uk-text-center"><a href="https://itunes.apple.com/us/app/molly-bears/id1212789565"
+                                     target="_blank"><img src="/images/Logos/ios-badge.svg" width="200px" height="60px"
+                                                          alt="Get The Molly Bears App on the Apple App Store for iOS"
+                                                          title="Get The Molly Bears App on the Apple App Store for iOS"></a>
+        <br><br> <a href="https://play.google.com/store/apps/details?id=com.appspotr.id_747009603585181089"
+                    target="_blank"><img src="/images/Logos/android-badge.png" width="200px" height="60px"
+                                         alt="Get The Molly Bears App on the Google Play Store for Android"
+                                         title="Get The Molly Bears App on the Google Play Store for Android"></a></div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
