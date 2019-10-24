@@ -1,47 +1,44 @@
 import Vue from 'vue';
+import CommandCenter from "../CommandCenter";
 
 Vue.directive('grid', function (el, bind) {
-  let classes = ['uk-grid'];
+  const cc = new CommandCenter(el, bind);
 
-  for (let mod in bind.modifiers) {
-    let split = mod.split(':');
-
-    switch (split[0]) {
-      case 's':
-        classes.push('uk-grid-small');
-        break;
-      case 'm':
-        classes.push('uk-grid-medium');
-        break;
-      case 'l':
-        classes.push('uk-grid-large');
-        break;
-      case 'col':
-        classes.push('uk-grid-collapse');
-        break;
-      case 'divider':
-        classes.push('uk-grid-divider');
-        break;
-      case 'match':
-        el.setAttribute('data-uk-grid-match', `{target:'${bind.value}'}`);
-        break;
-      case 'child':
-        classes.push(`uk-grid-width-${split[1]}`);
-        break;
-      case 'child-s':
-        classes.push(`uk-grid-width-small-${split[1]}`);
-        break;
-      case 'child-m':
-        classes.push(`uk-grid-width-medium-${split[1]}`);
-        break;
-      case 'child-l':
-        classes.push(`uk-grid-width-large-${split[1]}`);
-        break;
-      case 'child-x':
-        classes.push(`uk-grid-width-xlarge-${split[1]}`);
-        break;
-    }
-  }
-
-  el.classList.add(...classes);
+  cc.hasArg((arg) => {
+    if(arg === 'uk') cc.trueValueClass( 'uk-grid');
+  })
+    .hasNothing(() => cc.addClass('uk-grid'))
+    .hasMod('center', () => cc.trueValueClass('uk-container.center'))
+    .hasMod('s', () => cc.trueValueClass('uk-grid-small'))
+    .hasMod('m', () => cc.trueValueClass('uk-grid-medium'))
+    .hasMod('l', () => cc.trueValueClass('uk-grid-large'))
+    .hasMod('col', () => cc.trueValueClass('uk-grid-collapse'))
+    .hasMod('div', () => cc.trueValueClass('uk-grid-divider'))
+    .hasMod('child', (m, arg) => {
+      if(arg) cc.trueValueClass(`uk-grid-width-${arg}`);
+      else cc.trueValueClass(`uk-grid-width-1-1`);
+    })
+    .hasMod('child-s', (m, arg) => {
+      if(arg) cc.trueValueClass(`uk-grid-width-small-${arg}`);
+      else cc.trueValueClass(`uk-grid-width-small-1-1`);
+    })
+    .hasMod('child-m', (m, arg) => {
+      if(arg) cc.trueValueClass(`uk-grid-width-medium-${arg}`);
+      else cc.trueValueClass(`uk-grid-width-medium-1-1`);
+    })
+    .hasMod('child-l', (m, arg) => {
+      if(arg) cc.trueValueClass(`uk-grid-width-large-${arg}`);
+      else cc.trueValueClass(`uk-grid-width-large-1-1`);
+    })
+    .hasMod('match', () => {
+      if(typeof this.isValue) {
+        let val = this.value;
+        if(typeof val === 'string')
+          cc.trueValueAttr(['data-uk-grid-match', `{target: '${val}'}`]);
+        else if(val) cc.trueValueAttr(['data-uk-grid-match']);
+        else cc.trueValueAttr(['data-uk-grid-match', 'false']);
+      } else {
+        cc.trueValueAttr(['data-uk-grid-match']);
+      }
+    });
 });

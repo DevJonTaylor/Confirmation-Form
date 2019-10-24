@@ -1,6 +1,6 @@
 <template>
   <div v-container:self.center>
-    <grid-div id="pdf">
+    <grid-div v-hidden.s id="pdf">
       <div style="text-align: center;" v-width v-flex.center>
         <a href="https://www.mollybears.org" rel="alternate" title="Molly Bears" target="_blank">
           <br/>
@@ -23,7 +23,7 @@
             </div>
           </div>
           <div v-width v-flex.center>
-            <div v-width.l:2-3.s>
+            <div v-width.l:2-3.m>
               <table cellpadding="8" cellspacing="0"
                      style="width: 100%; vertical-align: top; font-size: 13px; line-height: 13px;">
                 <tbody>
@@ -120,13 +120,113 @@
         </grid-div>
       </div>
     </grid-div>
-    <grid-div>
+    <grid-div v-visible.s>
+      <div style="text-align: center;" v-width v-flex.center>
+        <a href="https://www.mollybears.org" rel="alternate" title="Molly Bears" target="_blank">
+          <br/>
+          <img src="https://www.mollybears.org/images/Logos/Molly-Bears-Logo-MD.png" alt="Molly Bears Logo" width="260"
+               height="82"/>
+        </a>
+      </div>
+      <table v-table>
+        <tbody v-grid.center.child-s>
+        <tr>
+          <td :style="tdStyle1" colspan="2">
+            <p :style="tdHeaderStyle"><strong>ORDER &amp; CONTACT INFO</strong></p>
+            <p :style="paddingLeft"><strong>Order Number:</strong> {{submission["Order Number"]}}</p>
+            <p :style="paddingLeft"><strong>Order Status:</strong> {{submission.Status}}</p>
+            <p :style="paddingLeft"><strong>First Name:</strong> {{submission["First Name"]}}</p>
+            <p :style="paddingLeft"><strong>Last Name:</strong> {{submission["Last Name"]}}</p>
+            <p :style="paddingLeft"><strong>Email:</strong> {{submission.Email}}</p>
+            <p :style="paddingLeft" v-show="submission.Phone !== ''"><strong>Phone:</strong>
+              {{submission.Phone}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td :style="tdStyle1" colspan="2">
+            <p :style="tdHeaderStyle"><strong>ANGEL INFO</strong></p>
+            <p :style="paddingLeft" v-if="submission['Angels Name'] !== ''"><strong>Angels Name:</strong>
+              {{submission["Angels Name"]}}</p>
+            <p :style="paddingLeft"><strong>Angels Gender:</strong> {{submission['Angels Gender']}}</p>
+            <p :style="paddingLeft" v-if="submission['No Weight'] !== ''">
+              <strong>Size:</strong> {{submission["Bear Size"]}}
+            </p>
+            <p :style="paddingLeft" v-if="submission['Bear Size'] === ''">
+              <strong>Angels Weight in Pounds:</strong> {{submission["Angels Weight in Pounds"]}}
+            </p>
+            <p :style="paddingLeft" v-if="submission['Bear Size'] === ''">
+              <strong>Angels Weight in Ounces:</strong> {{submission["Angels Weight in Ounces"]}}
+            </p>
+            <p :style="paddingLeft"><strong>Angels Birthday:</strong> {{submission["Angels Birthday"]}}</p>
+            <p :style="paddingLeft"><strong>Angelversary Date:</strong> {{submission["Angelversary Date"]}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td  :style="tdStyle1" colspan="2">
+            <p :style="tdHeaderStyle"><strong>SHIPPING ADDRESS</strong></p>
+            <p :style="paddingLeft"><strong>Address:</strong> {{submission.Address}}</p>
+            <p :style="paddingLeft"><strong>City:</strong> {{submission.City}}</p>
+            <p :style="paddingLeft">
+              <strong>State or Province:</strong>
+              {{submission["State or Province"]}} {{submission["Other State or Province"]}}
+            </p>
+            <p :style="paddingLeft"><strong>Zip Code:</strong> {{submission["Zip Code"]}}</p>
+            <p :style="paddingLeft"><strong>Country:</strong> {{submission.Country}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td :style="tdStyle1" colspan="2">
+            <p :style="tdHeaderStyle"><strong>BEAR DETAILS</strong></p>
+            <p :style="paddingLeft" v-if="submission['Plain Bear'] === 'Yes'"><strong>Plain Bear
+              Wanted?:</strong> Yes</p>
+            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
+              <strong>Color(s):</strong>
+              {{submission["Bear Color"]}}
+            </p>
+            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
+              <strong>Theme(s):</strong>
+              {{submission["Bear Theme"]}}
+            </p>
+            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
+              <strong>Omit Item(s):</strong>
+              {{submission["Bear Omit"]}}
+            </p>
+            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
+              <strong>Special Requests:</strong>
+              {{submission["Special Requests"]}}
+            </p>
+            <p :style="paddingLeft"><strong>Embroidery Wanted:</strong> {{submission["Embroidery 1"]}}</p>
+            <p :style="paddingLeft" v-if="isEmbroidery"><strong>Embroidery Name:</strong>
+              {{submission["Embroidery 1 Name"]}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td :style="tdStyle1" colspan="2">
+            <p :style="tdHeaderStyle"><strong>MISC INFO</strong></p>
+            <p :style="paddingLeft" v-if="submission.Username !== ''">
+              <strong>Username:</strong> {{submission.Username}}
+            </p>
+            <p :style="paddingLeft" v-if="showAdditionalShippingPaid">
+              <strong>Additional Shipping Amount Paid:</strong>
+              <span> ${{submission["Additional Shipping Paid"]}} (USD)</span>
+            </p>
+            <p :style="paddingLeft" v-if="showAdditionalShippingPaid">
+                    <span>
+                      <strong>Transaction Paid Via: </strong>
+                    </span>{{$root.payment.cardType}} - {{$root.payment.transactionId}} - {{transactionDate}}</p>
+            <p :style="paddingLeft"><strong>Message/Note:</strong><span> {{submission.Message1}}</span></p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </grid-div>
+    <grid-div v-hidden.s>
       <div v-width v-flex.around v-margin>
         <uk-button
-          type="secondary"
-          size="large"
-          @click.prevent.stop="$root.hideModal('#summarizedModal')"
-          :disabled="loading"
+                type="secondary"
+                size="large"
+                @click.prevent.stop="$root.hideModal('#summarizedModal')"
+                :disabled="loading"
         >
           <uk-icon name="pencil-square-o"></uk-icon>
           &nbsp; <span class="uk-hidden-small">Edit</span>
@@ -141,6 +241,29 @@
         </uk-button>
       </div>
     </grid-div>
+    <grid-div v-visible.s>
+      <div v-width v-flex.around v-margin>
+        <group-buttons>
+          <uk-button
+                  type="secondary"
+                  size="large"
+                  @click.prevent.stop="$root.hideModal('#summarizedModal')"
+                  :disabled="loading"
+          >
+            <uk-icon name="pencil-square-o"></uk-icon>
+            &nbsp; <span>Edit</span>
+          </uk-button>
+          <uk-button size="large" @click="downloadPdf">
+            <uk-icon name="file-pdf-o"></uk-icon>
+            &nbsp; <span>PDF</span>
+          </uk-button>
+          <uk-button type="success" size="large" :disabled="loading" @click.prevent.stop="save">
+            <uk-icon name="save"></uk-icon>
+            &nbsp; <span>Save</span>
+          </uk-button>
+        </group-buttons>
+      </div>
+    </grid-div>
   </div>
 </template>
 
@@ -150,10 +273,11 @@
   import UkButton from "../UIKit/Buttons/Button";
   import UkIcon from "../UIKit/UkIcon";
   import {post} from "../../Helpers/XHR";
+  import GroupButtons from "../UIKit/Buttons/GroupButtons";
 
   export default {
     name: "SummarizedConfirmation",
-    components: {UkIcon, UkButton, GridDiv},
+    components: {GroupButtons, UkIcon, UkButton, GridDiv},
     props: {
       submission: {
         type: Object,
