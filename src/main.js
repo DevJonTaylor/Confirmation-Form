@@ -36,7 +36,8 @@ const token = window.location.search.substr(7);
 
 Vue.config.productionTip = false;
 Vue.prototype.token = token;
-Vue.prototype.origin = 'https://mollybears.org/confirm-api';
+// Vue.prototype.origin = 'https://mollybears.org/confirm-api';
+Vue.prototype.origin = `${origin}${token}`;
 Vue.prototype.apiURL = `${origin}?token=${token}`;
 window.Vue = Vue;
 

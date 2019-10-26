@@ -397,7 +397,7 @@
 </script>
 
 <style lang="scss">
-  @media (min-width: 768px) {
+  @media (min-width: 768px) and (max-width: 959px) {
     .uk-modal-dialog-blank {
       height: 100%;
     }
