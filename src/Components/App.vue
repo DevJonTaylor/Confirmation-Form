@@ -72,7 +72,7 @@
       </uk-modal>
       <uk-modal id="submitModal">
         <modal-dialog>
-          <modal-header v-flex:f.center.col>
+          <modal-header v-flex.5.col>
             <h3 class="uk-h3" v-txt.danger v-margin.no:top>{{loadingHeader}}</h3>
             <hollow-dots-spinner
               v-show="loading"

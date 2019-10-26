@@ -4,42 +4,20 @@ import CommandCenter from "../CommandCenter";
 Vue.directive('flex', function (el, bind) {
   let cc = new CommandCenter(el, bind);
 
-  let addClass = cc.addClass('uk-flex');
-
-  cc.hasMod('center', function () {
-    this.addClass('uk-flex-center')
-  })
-    .hasMod('right', function () {
-      this.addClass('uk-flex-right')
-    })
-    .hasMod('middle', function () {
-      this.addClass('uk-flex-middle')
-    })
-    .hasMod('top', function () {
-      this.addClass('uk-flex-top')
-    })
-    .hasMod('between', function () {
-      this.addClass('uk-flex-space-between')
-    })
-    .hasMod('around', function () {
-      this.addClass('uk-flex-space-around')
-    })
-    .hasMod('wor', function () {
-      this.addClass('uk-flex-row-reverse')
-    })
-    .hasMod('col', function () {
-      this.addClass('uk-flex-column')
-    })
-    .hasMod('loc', function () {
-      this.addClass('uk-flex-column-reverse')
-    })
-    .hasMod('wrap', function (mod, arg) {
-      this.addClass(`uk-flex-wrap-${arg}`)
-    })
-    .hasMod('order', function (mod, arg) {
-      this.addClass(`uk-flex-order-${arg}`)
-    })
-    .hasMod('item', function (mod, arg) {
-      this.addClass(`uk-flex-item-${arg}`)
-    });
+  cc.hasNothing(() => cc.addClass('uk-flex'))
+    .hasArg(() => cc.trueValueClass('uk-flex'))
+    .hasMod('5', () => cc.trueValueClass('uk-flex', 'uk-flex-center', 'uk-flex-middle'))
+    .hasMod('align', () => cc.trueValueClass('uk-flex'))
+    .hasMod('center', () => cc.trueValueClass('uk-flex-center'))
+    .hasMod('right', () => cc.trueValueClass('uk-flex-right'))
+    .hasMod('middle', () => cc.trueValueClass('uk-flex-middle'))
+    .hasMod('top', () => cc.trueValueClass('uk-flex-top'))
+    .hasMod('between', () => cc.trueValueClass('uk-flex-between'))
+    .hasMod('around', () => cc.trueValueClass('uk-flex-around'))
+    .hasMod('col', () => cc.trueValueClass('uk-flex-column'))
+    .hasMod('wor', () => cc.trueValueClass('uk-flex-row-reverse'))
+    .hasMod('loc', () => cc.trueValueClass('uk-flex-column-reverse'))
+    .hasMod('wrap', (mod, arg) => cc.trueValueClass(`uk-flex-wrap-${arg}`))
+    .hasMod('order', (mod, arg) => cc.trueValueClass(`uk-flex-wrap-${arg}`))
+    .hasMod('item', (mod, arg) => cc.trueValueClass(`uk-flex-wrap-${arg}`));
 });

@@ -1,95 +1,23 @@
 import Vue from 'vue';
-import {has, keys, forIn} from 'lodash';
+import CommandCenter from "../CommandCenter";
 
-Vue.directive('txt', function (el, bind) {
-  let isArg = has(bind, 'arg');
-  let isModifiers = keys(bind.modifiers).length > 0;
+Vue.directive('txt', function(el, bind) {
+  const cc = new CommandCenter(el, bind);
 
-  function addClass(cls) {
-    el.classList.add(`uk-text-${cls}`);
-
-    return addClass;
-  }
-
-  if (!isArg && !isModifiers)
-    return false;
-
-  if (isArg) {
-    switch (bind.arg) {
-      case 'left':
-        addClass('left');
-        break;
-      case 'center':
-        addClass('center');
-        break;
-      case 'right':
-        addClass('right');
-        break;
-      case 'justify':
-        addClass('justify');
-        break;
-      case 'top':
-        addClass('top');
-        break;
-      case 'middle':
-        addClass('middle');
-        break;
-      case 'bottom':
-        addClass('bottom');
-        break;
-    }
-  }
-
-  if (isModifiers) {
-    forIn(bind.modifiers, (value, modifier) => {
-      let mod = modifier.split(':');
-      switch (mod[0]) {
-        case 's':
-          addClass('small');
-          break;
-        case 'l':
-          addClass('large');
-          break;
-        case 'bold':
-          addClass('bold');
-          break;
-        case 'muted':
-          addClass('muted');
-          break;
-        case 'primary':
-          addClass('primary');
-          break;
-        case 'success':
-          addClass('success');
-          break;
-        case 'warning':
-          addClass('warning');
-          break;
-        case 'danger':
-          addClass('danger');
-          break;
-        case 'contrast':
-          addClass('contrast');
-          break;
-        case 'cap':
-          addClass('capitalize');
-          break;
-        case 'upper':
-          addClass('uppercase');
-          break;
-        case 'lower':
-          addClass('lowercase');
-          break;
-        case 'truncate':
-          addClass('truncate');
-          break;
-        case 'break':
-          addClass('break');
-          break;
-        case 'nowrap':
-          addClass('nowrap');
-          break;
-      }
-    });
-  }
+  cc.hasArg(arg => cc.trueValueClass`uk-text-${arg}`)
+    .hasMod('s', () => cc.trueValueClass('uk-text-small'))
+    .hasMod('l', () => cc.trueValueClass('uk-text-large'))
+    .hasMod('bold', () => cc.trueValueClass('uk-text-bold'))
+    .hasMod('muted', () => cc.trueValueClass('uk-text-muted'))
+    .hasMod('primary', () => cc.trueValueClass('uk-text-primary'))
+    .hasMod('success', () => cc.trueValueClass('uk-text-success'))
+    .hasMod('warning', () => cc.trueValueClass('uk-text-warning'))
+    .hasMod('danger', () => cc.trueValueClass('uk-text-danger'))
+    .hasMod('contrast', () => cc.trueValueClass('uk-text-contrast'))
+    .hasMod('cap', () => cc.trueValueClass('uk-text-capitalize'))
+    .hasMod('upper', () => cc.trueValueClass('uk-text-uppercase'))
+    .hasMod('lower', () => cc.trueValueClass('uk-text-lowercase'))
+    .hasMod('truncate', () => cc.trueValueClass('uk-text-truncate'))
+    .hasMod('break', () => cc.trueValueClass('uk-text-break'))
+    .hasMod('nowrap', () => cc.trueValueClass('uk-text-nowrap'));
 });
