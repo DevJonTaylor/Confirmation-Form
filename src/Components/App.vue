@@ -402,6 +402,11 @@
       height: 100%;
     }
   }
+  @media (min-width: 768px) {
+    .uk-modal-dialog-blank {
+      height: 100%;
+    }
+  }
   h6 {
     font-size: 17px;
     line-height: 23px;
@@ -458,6 +463,7 @@
 
   .mb-height-100 {
     height: 100%;
+    position: fixed;
   }
 
   .uk-close {

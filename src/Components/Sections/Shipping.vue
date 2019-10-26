@@ -3,7 +3,7 @@
     <panel v-top-border:tan>
       <grid-div>
         <panel-title v-width>Shipping Address</panel-title>
-        <div v-width.m:1-3.s:1-1 v-margin:top>
+        <div v-width.m:1-3.s v-margin:top>
           <form-input-text
             name="Address"
             placeholder="Shipping Address"
@@ -28,7 +28,7 @@
         </div>
         <div v-width.m:1-3.s:1-1 v-margin:top>
           <form-input-text
-            v-show="$root.shipping.state === 'Other/Non-USA'"
+            v-visible.no="$root.shipping.state !== 'Other/Non-USA'"
             name="Other State or Province"
             v-model="$root.shipping.other"
             @change="$root.updatePrevious($event.target.value, 'other')"

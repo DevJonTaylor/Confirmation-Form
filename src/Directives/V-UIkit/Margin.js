@@ -6,27 +6,22 @@ Vue.directive('margin', function (el, bind) {
   cc.hasNothing(function () {
     this.addClass('uk-margin')
   })
+    .hasOnlyValue(function(val) {
+      this.isClass(val, 'uk-margin');
+    })
     .hasArg(function (arg) {
-      this.addClass(`uk-margin-${arg}`)
+      this.isClass((!this.isValue || this.value),`uk-margin-${arg}`)
     })
     .hasMod('s', function (mod, arg) {
-      if (!arg) this.addClass('uk-margin-small');
-      else this.addClass(`uk-margin-small-${arg}`);
+      if (!arg) this.isClass((!this.isValue || this.value),'uk-margin-small');
+      else this.isClass((!this.isValue || this.value),`uk-margin-small-${arg}`);
     })
     .hasMod('l', function (mod, arg) {
-      if (!arg) this.addClass('uk-margin-large');
-      else this.addClass(`uk-margin-large-${arg}`);
-    })
-    .hasMod('sm', function (mod, arg) {
-      if (!arg) this.addClass('uk-margin-small');
-      else this.addClass(`uk-margin-small-${arg}`);
-    })
-    .hasMod('lg', function (mod, arg) {
-      if (!arg) this.addClass('uk-margin-large');
-      else this.addClass(`uk-margin-large-${arg}`);
+      if (!arg) this.isClass((!this.isValue || this.value),'uk-margin-large');
+      else this.isClass((!this.isValue || this.value),`uk-margin-large-${arg}`);
     })
     .hasMod('no', function (mod, arg) {
-      if (!arg) this.addClass('uk-margin-remove');
-      else this.addClass(`uk-margin-${arg}-remove`);
+      if (!arg) this.isClass((!this.isValue || this.value),'uk-margin-remove');
+      else this.isClass((!this.isValue || this.value),`uk-margin-${arg}-remove`);
     });
 });

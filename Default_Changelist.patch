@@ -1,0 +1,812 @@
+Index: src/main.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main.js	(revision Local Version)
++++ src/main.js	(revision Shelved Version)
+@@ -17,6 +17,9 @@
+ import './Directives/V-UIkit/Flex';
+ import './Directives/V-UIkit/Container';
+ import './Directives/V-UIkit/Grid';
++import './Directives/V-UIkit/Hidden';
++import './Directives/V-UIkit/Visible';
++import './Directives/V-UIkit/Table';
+ import './Directives/HrefVoid';
+ import {get as getToken} from "./Helpers/XHR";
+ import * as Sentry from '@sentry/browser';
+@@ -33,7 +36,7 @@
+ 
+ Vue.config.productionTip = false;
+ Vue.prototype.token = token;
+-Vue.prototype.origin = origin;
++Vue.prototype.origin = 'https://mollybears.org/confirm-api';
+ Vue.prototype.apiURL = `${origin}?token=${token}`;
+ window.Vue = Vue;
+ 
+Index: src/Components/App.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Components/App.vue	(revision Local Version)
++++ src/Components/App.vue	(revision Shelved Version)
+@@ -96,9 +96,9 @@
+         </modal-dialog>
+       </uk-modal>
+       <uk-modal id="summarizedModal">
+-        <modal-dialog v-modal.full class="mb-height-100">
++        <modal-dialog v-modal.full >
+           <modal-header>
+-            <h3 class="uk-h3" v-txt:center.primary>Summarized Confirmation</h3>
++            <h3 class="uk-h3" v-txt:center.primary v-margin.no>Summarized Confirmation</h3>
+           </modal-header>
+           <summarized-confirmation :submission="$root.submission"></summarized-confirmation>
+         </modal-dialog>
+@@ -131,7 +131,7 @@
+ 
+   import {set} from 'lodash';
+   import Loader from "./Loader";
+-  import SummarizedConfirmation from "./Form/SummarizedConfirmation";
++  import SummarizedConfirmation from "./Sections/SummarizedConfirmation";
+   import AlertClose from "./UIKit/Alert/Close";
+   import Danger from "./UIKit/Alert/Danger";
+   import {post, get} from "../Helpers/XHR";
+@@ -397,6 +397,11 @@
+ </script>
+ 
+ <style lang="scss">
++  @media (min-width: 768px) {
++    .uk-modal-dialog-blank {
++      height: 100%;
++    }
++  }
+   h6 {
+     font-size: 17px;
+     line-height: 23px;
+@@ -453,7 +458,6 @@
+ 
+   .mb-height-100 {
+     height: 100%;
+-    position: fixed;
+   }
+ 
+   .uk-close {
+Index: src/Directives/V-UIkit/Grid.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Directives/V-UIkit/Grid.js	(revision Local Version)
++++ src/Directives/V-UIkit/Grid.js	(revision Shelved Version)
+@@ -1,47 +1,44 @@
+ import Vue from 'vue';
++import CommandCenter from "../CommandCenter";
+ 
+ Vue.directive('grid', function (el, bind) {
+-  let classes = ['uk-grid'];
+-
+-  for (let mod in bind.modifiers) {
+-    let split = mod.split(':');
++  const cc = new CommandCenter(el, bind);
+ 
+-    switch (split[0]) {
+-      case 's':
+-        classes.push('uk-grid-small');
+-        break;
+-      case 'm':
+-        classes.push('uk-grid-medium');
+-        break;
+-      case 'l':
+-        classes.push('uk-grid-large');
+-        break;
+-      case 'col':
+-        classes.push('uk-grid-collapse');
+-        break;
+-      case 'divider':
+-        classes.push('uk-grid-divider');
+-        break;
+-      case 'match':
+-        el.setAttribute('data-uk-grid-match', `{target:'${bind.value}'}`);
+-        break;
+-      case 'child':
+-        classes.push(`uk-grid-width-${split[1]}`);
+-        break;
+-      case 'child-s':
+-        classes.push(`uk-grid-width-small-${split[1]}`);
+-        break;
+-      case 'child-m':
+-        classes.push(`uk-grid-width-medium-${split[1]}`);
+-        break;
+-      case 'child-l':
+-        classes.push(`uk-grid-width-large-${split[1]}`);
+-        break;
+-      case 'child-x':
+-        classes.push(`uk-grid-width-xlarge-${split[1]}`);
+-        break;
+-    }
+-  }
+-
+-  el.classList.add(...classes);
++  cc.hasArg((arg) => {
++    if(arg === 'uk') cc.trueValueClass( 'uk-grid');
++  })
++    .hasNothing(() => cc.addClass('uk-grid'))
++    .hasMod('center', () => cc.trueValueClass('uk-container.center'))
++    .hasMod('s', () => cc.trueValueClass('uk-grid-small'))
++    .hasMod('m', () => cc.trueValueClass('uk-grid-medium'))
++    .hasMod('l', () => cc.trueValueClass('uk-grid-large'))
++    .hasMod('col', () => cc.trueValueClass('uk-grid-collapse'))
++    .hasMod('div', () => cc.trueValueClass('uk-grid-divider'))
++    .hasMod('child', (m, arg) => {
++      if(arg) cc.trueValueClass(`uk-grid-width-${arg}`);
++      else cc.trueValueClass(`uk-grid-width-1-1`);
++    })
++    .hasMod('child-s', (m, arg) => {
++      if(arg) cc.trueValueClass(`uk-grid-width-small-${arg}`);
++      else cc.trueValueClass(`uk-grid-width-small-1-1`);
++    })
++    .hasMod('child-m', (m, arg) => {
++      if(arg) cc.trueValueClass(`uk-grid-width-medium-${arg}`);
++      else cc.trueValueClass(`uk-grid-width-medium-1-1`);
++    })
++    .hasMod('child-l', (m, arg) => {
++      if(arg) cc.trueValueClass(`uk-grid-width-large-${arg}`);
++      else cc.trueValueClass(`uk-grid-width-large-1-1`);
++    })
++    .hasMod('match', () => {
++      if(typeof this.isValue) {
++        let val = this.value;
++        if(typeof val === 'string')
++          cc.trueValueAttr(['data-uk-grid-match', `{target: '${val}'}`]);
++        else if(val) cc.trueValueAttr(['data-uk-grid-match']);
++        else cc.trueValueAttr(['data-uk-grid-match', 'false']);
++      } else {
++        cc.trueValueAttr(['data-uk-grid-match']);
++      }
++    });
+ });
+Index: src/Directives/V-UIkit/Pull.js
+===================================================================
+--- src/Directives/V-UIkit/Pull.js	(revision Shelved Version)
++++ src/Directives/V-UIkit/Pull.js	(revision Shelved Version)
+@@ -0,0 +1,10 @@
++import Vue from 'vue';
++import CommandCenter from "../CommandCenter";
++
++Vue.directive('push', function (el, bind) {
++  let cc = new CommandCenter(el, bind);
++
++  cc.hasArg(function(arg) {
++    this.isClass((!this.isValue || this.value), `uk-pull-${arg}`);
++  })
++});
+Index: src/Directives/V-UIkit/Push.js
+===================================================================
+--- src/Directives/V-UIkit/Push.js	(revision Shelved Version)
++++ src/Directives/V-UIkit/Push.js	(revision Shelved Version)
+@@ -0,0 +1,10 @@
++import Vue from 'vue';
++import CommandCenter from "../CommandCenter";
++
++Vue.directive('push', function (el, bind) {
++  let cc = new CommandCenter(el, bind);
++
++  cc.hasArg(function(arg) {
++    this.isClass((!this.isValue || this.value), `uk-push-${arg}`);
++  })
++});
+Index: src/Directives/V-UIkit/Table.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Directives/V-UIkit/Table.js	(revision Local Version)
++++ src/Directives/V-UIkit/Table.js	(revision Shelved Version)
+@@ -1,19 +1,18 @@
+ import Vue from 'vue';
+ import CommandCenter from '../CommandCenter';
+ 
+-CommandCenter.run = function (el, bind) {
+-  CommandCenter.start(el, bind)
+-    .hasMod('middle', () => this.addClass('uk-table-middle'))
+-    .hasMod('hover', () => this.addClass('uk-table-hover'))
+-    .hasMod('striped', () => this.addClass('uk-table-striped'))
+-    .hasMod('condensed', () => this.addClass('uk-table-condensed'));
+-};
+-
+ /**
+- * @property row, small, large, lg, md, sm, xs, blank
+- * @example v-form.large.lg.blank
++ * @property middle, hover, striped, condensed
++ * @example v-table.hover.striped.condensed
+  * <input class="uk-form-large uk-form-width-large uk-form-blank" type="text">
+  */
+ Vue.directive('table', function (el, bind) {
+-  CommandCenter.run(el, bind)
++  const cc = new CommandCenter(el, bind);
++
++  cc
++    .always(() => cc.trueValueClass('uk-table'))
++    .hasMod('middle', () => cc.trueValueClass('uk-table-middle'))
++    .hasMod('hover', () => cc.trueValueClass('uk-table-hover'))
++    .hasMod('striped', () => cc.trueValueClass('uk-table-striped'))
++    .hasMod('condensed', () => cc.trueValueClass('uk-table-condensed'))
+ });
+Index: src/Directives/CommandCenter.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Directives/CommandCenter.js	(revision Local Version)
++++ src/Directives/CommandCenter.js	(revision Shelved Version)
+@@ -1,8 +1,9 @@
+-import {get, forIn, keys} from 'lodash';
++import {has, get, forIn, keys} from 'lodash';
+ 
+ export default class CommandCenter {
+   constructor(el, bind) {
+     this.el = el;
++    this.isValue = has(bind, 'expression');
+     this.value = get(bind, 'value', null);
+     this.arg = get(bind, 'arg', null);
+     let mods = get(bind, 'modifiers', null);
+@@ -26,6 +27,51 @@
+     this.el.classList.add(...cls);
+     return this;
+   }
++
++  trueValueClass(...classes) {
++    return this.isClass((!this.isValue || this.value), ...classes);
++  }
++
++  trueValueAttr(...attrs) {
++    return this.isAttr((!this.isValue || this.value), ...attrs);
++  }
++
++  removeClass(...cls) {
++    this.el.classList.remove(...cls);
++    return this;
++  }
++
++  isClass(statement, ...classes) {
++    return this.is(statement, () => this.addClass(...classes), () => this.removeClass(...classes));
++  }
++
++  addAttr(...attrs) {
++    for(let attr of attrs) {
++      if(attr.length === 1) this.el.setAttribute(attr[0]);
++      else this.el.setAttribute(attr[0], attr[1]);
++    }
++
++    return this;
++  }
++
++  removeAttr(...attrs) {
++    for(let attr of attrs) {
++      this.el.removeAttribute(attr[0]);
++    }
++
++    return this;
++  }
++
++  isAttr(statement, ...attr) {
++    return this.is(statement, () => this.addAttr(...attr), () => this.removeAttr(...attr));
++  }
++
++  is(statement, tru, fal) {
++    if(statement) tru();
++    else fal();
++
++    return this;
++  }
+ 
+   hasArg(callback) {
+     if (this.arg) callback.bind(this)(this.arg);
+@@ -40,13 +86,26 @@
+   }
+ 
+   hasValue(callback) {
+-    if (this.value) callback.bind(this)(this.value);
++    if(this.value) callback.bind(this)(this.value);
+ 
+     return this;
+   }
+ 
++  hasOnlyValue(callback) {
++    if(this.isValue && !this.arg && !this.mod)
++      callback.bind(this)(this.value);
++
++    return this;
++  }
++
+   hasNothing(callback) {
+-    if (!this.mod && !this.arg && !this.value) callback.bind(this)();
++    if (!this.isValue && !this.arg && !this.mod) callback.bind(this)();
++
++    return this;
++  }
++
++  always(callback) {
++    callback();
+ 
+     return this;
+   }
+Index: src/Directives/V-UIkit/Width.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Directives/V-UIkit/Width.js	(revision Local Version)
++++ src/Directives/V-UIkit/Width.js	(revision Shelved Version)
+@@ -1,112 +1,25 @@
+ import Vue from 'vue';
++import CommandCenter from "../CommandCenter";
+ 
+ Vue.directive('width', function (el, bind) {
+-  if (Object.keys(bind.modifiers).length === 0 && !bind.arg) {
+-    el.classList.add('uk-width-1-1');
+-  } else {
+-    let classes = [];
+-
+-    if (bind.arg) classes.push(`uk-width-${bind.arg}`);
+-
+-    for (let mod in bind.modifiers) {
+-      let split = mod.split(':');
+-      let cls = ['uk', 'width'];
+-
+-      switch (split[0]) {
+-        case 's':
+-          cls.push('small');
+-          break;
+-        case 'm':
+-          cls.push('medium');
+-          break;
+-        case 'l':
+-          cls.push('large');
+-          break;
+-      }
+-
+-      if (split.length === 2) {
+-        cls.push(split[1]);
+-      } else {
+-        cls.push('1-1');
+-      }
+-
+-      classes.push(cls.join('-'));
+-    }
+-
+-    el.classList.add(...classes);
+-  }
+-});
+-
+-Vue.directive('push', function (el, bind) {
+-  if (Object.keys(bind.modifiers).length === 0 && !bind.arg) {
+-    el.classList.add('uk-push-1-1');
+-  } else {
+-    let classes = [];
+-
+-    if (bind.arg) classes.push(`uk-push-${bind.arg}`);
+-
+-    for (let mod in bind.modifiers) {
+-      let split = mod.split(':');
+-      let cls = ['uk', 'push'];
+-
+-      switch (split[0]) {
+-        case 's':
+-          cls.push('small');
+-          break;
+-        case 'm':
+-          cls.push('medium');
+-          break;
+-        case 'l':
+-          cls.push('large');
+-          break;
+-      }
++  let cc = new CommandCenter(el, bind);
+ 
+-      if (split.length === 2) {
+-        cls.push(split[1]);
+-      } else {
+-        cls.push('1-1');
+-      }
+-
+-      classes.push(cls.join('-'));
+-    }
+-
+-    el.classList.add(...classes);
+-  }
+-});
+-
+-Vue.directive('pull', function (el, bind) {
+-  if (Object.keys(bind.modifiers).length === 0 && !bind.arg) {
+-    el.classList.add('uk-pull-1-1');
+-  } else {
+-    let classes = [];
+-
+-    if (bind.arg) classes.push(`uk-pull-${bind.arg}`);
+-
+-    for (let mod in bind.modifiers) {
+-      let split = mod.split(':');
+-      let cls = ['uk', 'pull'];
+-
+-      switch (split[0]) {
+-        case 's':
+-          cls.push('small');
+-          break;
+-        case 'm':
+-          cls.push('medium');
+-          break;
+-        case 'l':
+-          cls.push('large');
+-          break;
+-      }
+-
+-      if (split.length === 2) {
+-        cls.push(split[1]);
+-      } else {
+-        cls.push('1-1');
+-      }
+-
+-      classes.push(cls.join('-'));
+-    }
+-
+-    el.classList.add(...classes);
+-  }
++  cc
++    .hasNothing(function() { this.addClass('uk-width-1-1') })
++    .hasOnlyValue(function(val) { this.isClass(val, 'uk-width-1-1') })
++    .hasArg(function(arg) {
++      this.isClass((!this.isValue || this.value), `uk-width-${arg}`);
++    })
++    .hasMod('s', function(mod, arg) {
++      if(arg) this.isClass((!this.isValue || this.value), `uk-width-small-${arg}`);
++      else this.isClass((!this.isValue || this.value), `uk-width-small-1-1`);
++    })
++    .hasMod('m', function(mod, arg) {
++      if(arg) this.isClass((!this.isValue || this.value), `uk-width-medium-${arg}`);
++      else this.isClass((!this.isValue || this.value), `uk-width-medium-1-1`);
++    })
++    .hasMod('l', function(mod, arg) {
++      if(arg) this.isClass((!this.isValue || this.value), `uk-width-large-${arg}`);
++      else this.isClass((!this.isValue || this.value), `uk-width-large-1-1`);
++    });
+ });
+Index: src/Directives/V-UIkit/Hidden.js
+===================================================================
+--- src/Directives/V-UIkit/Hidden.js	(revision Shelved Version)
++++ src/Directives/V-UIkit/Hidden.js	(revision Shelved Version)
+@@ -0,0 +1,35 @@
++import Vue from 'vue';
++import CommandCenter from '../CommandCenter';
++
++/**
++ * Just add v-hidden="" if the value is true it will apply uk-hidden
++ * @property s, m, l, touch, notouch
++ * @example v-hidden.m.l
++ * <input class="uk-hidden-medium uk-hidden-large" type="text">
++ */
++Vue.directive('hidden', function (el, bind) {
++  let cc = new CommandCenter(el, bind);
++
++  cc
++    .hasNothing(function () {
++      this.addClass('uk-hidden')
++    })
++    .hasOnlyValue(function(val) {
++      this.isClass(val, 'uk-hidden')
++    })
++    .hasMod('s', function () {
++      this.isClass((!this.isValue || this.value), 'uk-hidden-small');
++    })
++    .hasMod('m', function () {
++      this.isClass((!this.isValue || this.value), 'uk-hidden-medium');
++    })
++    .hasMod('l', function () {
++      this.isClass((!this.isValue || this.value), 'uk-hidden-large');
++    })
++    .hasMod('touch', function () {
++      this.isClass((!this.isValue || this.value), 'uk-hidden-touch');
++    })
++    .hasMod('notouch', function () {
++      this.isClass((!this.isValue || this.value), 'uk-hidden-notouch');
++    });
++});
+Index: src/Directives/V-UIkit/Margin.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Directives/V-UIkit/Margin.js	(revision Local Version)
++++ src/Directives/V-UIkit/Margin.js	(revision Shelved Version)
+@@ -6,27 +6,22 @@
+   cc.hasNothing(function () {
+     this.addClass('uk-margin')
+   })
++    .hasOnlyValue(function(val) {
++      this.isClass(val, 'uk-margin');
++    })
+     .hasArg(function (arg) {
+-      this.addClass(`uk-margin-${arg}`)
++      this.isClass((!this.isValue || this.value),`uk-margin-${arg}`)
+     })
+     .hasMod('s', function (mod, arg) {
+-      if (!arg) this.addClass('uk-margin-small');
+-      else this.addClass(`uk-margin-small-${arg}`);
++      if (!arg) this.isClass((!this.isValue || this.value),'uk-margin-small');
++      else this.isClass((!this.isValue || this.value),`uk-margin-small-${arg}`);
+     })
+     .hasMod('l', function (mod, arg) {
+-      if (!arg) this.addClass('uk-margin-large');
+-      else this.addClass(`uk-margin-large-${arg}`);
+-    })
+-    .hasMod('sm', function (mod, arg) {
+-      if (!arg) this.addClass('uk-margin-small');
+-      else this.addClass(`uk-margin-small-${arg}`);
+-    })
+-    .hasMod('lg', function (mod, arg) {
+-      if (!arg) this.addClass('uk-margin-large');
+-      else this.addClass(`uk-margin-large-${arg}`);
++      if (!arg) this.isClass((!this.isValue || this.value),'uk-margin-large');
++      else this.isClass((!this.isValue || this.value),`uk-margin-large-${arg}`);
+     })
+     .hasMod('no', function (mod, arg) {
+-      if (!arg) this.addClass('uk-margin-remove');
+-      else this.addClass(`uk-margin-${arg}-remove`);
++      if (!arg) this.isClass((!this.isValue || this.value),'uk-margin-remove');
++      else this.isClass((!this.isValue || this.value),`uk-margin-${arg}-remove`);
+     });
+ });
+Index: src/Directives/V-UIkit/Visible.js
+===================================================================
+--- src/Directives/V-UIkit/Visible.js	(revision Shelved Version)
++++ src/Directives/V-UIkit/Visible.js	(revision Shelved Version)
+@@ -0,0 +1,37 @@
++import Vue from 'vue';
++import CommandCenter from '../CommandCenter';
++
++/**
++ * Just add v-visible="Boolean" if the value is true it will apply uk-visible
++ * @property s, m, l, no, hover, hover-inline
++ * @example v-visible.m.l
++ * <input class="uk-visible-medium uk-visible-large" type="text">
++ */
++Vue.directive('visible', function (el, bind) {
++  let cc = new CommandCenter(el, bind);
++  cc
++    .hasNothing(function () {
++      this.addClass('uk-visible')
++    })
++    .hasOnlyValue(function(val) {
++      this.isClass(val, 'uk-visible');
++    })
++    .hasMod('s', function () {
++      this.isClass((!this.isValue || this.value), 'uk-visible-small');
++    })
++    .hasMod('m', function () {
++      this.isClass((!this.isValue || this.value), 'uk-visible-medium');
++    })
++    .hasMod('l', function () {
++      this.isClass((!this.isValue || this.value), 'uk-visible-large');
++    })
++    .hasMod('no', function () {
++      this.isClass((!this.isValue || this.value), 'uk-invisible');
++    })
++    .hasMod('hover', function () {
++      this.isClass((!this.isValue || this.value), 'uk-visible-hover');
++    })
++    .hasMod('hover-inline', function () {
++      this.isClass((!this.isValue || this.value), 'uk-visible-hover-inline');
++    });
++});
+Index: src/Components/Sections/Shipping.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Components/Sections/Shipping.vue	(revision Local Version)
++++ src/Components/Sections/Shipping.vue	(revision Shelved Version)
+@@ -3,7 +3,7 @@
+     <panel v-top-border:tan>
+       <grid-div>
+         <panel-title v-width>Shipping Address</panel-title>
+-        <div v-width.m:1-3.s:1-1 v-margin:top>
++        <div v-width.m:1-3.s v-margin:top>
+           <form-input-text
+             name="Address"
+             placeholder="Shipping Address"
+@@ -28,7 +28,7 @@
+         </div>
+         <div v-width.m:1-3.s:1-1 v-margin:top>
+           <form-input-text
+-            v-show="$root.shipping.state === 'Other/Non-USA'"
++            v-visible.no="$root.shipping.state !== 'Other/Non-USA'"
+             name="Other State or Province"
+             v-model="$root.shipping.other"
+             @change="$root.updatePrevious($event.target.value, 'other')"
+Index: src/Components/Form/SummarizedConfirmation.vue
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Components/Form/SummarizedConfirmation.vue	(revision Local Version)
++++ src/Components/Sections/SummarizedConfirmation.vue	(revision Shelved Version)
+@@ -1,6 +1,6 @@
+ <template>
+   <div v-container:self.center>
+-    <grid-div id="pdf">
++    <grid-div v-hidden.s id="pdf">
+       <div style="text-align: center;" v-width v-flex.center>
+         <a href="https://www.mollybears.org" rel="alternate" title="Molly Bears" target="_blank">
+           <br/>
+@@ -23,7 +23,7 @@
+             </div>
+           </div>
+           <div v-width v-flex.center>
+-            <div v-width.l:2-3.s>
++            <div v-width.l:2-3.m>
+               <table cellpadding="8" cellspacing="0"
+                      style="width: 100%; vertical-align: top; font-size: 13px; line-height: 13px;">
+                 <tbody>
+@@ -120,13 +120,113 @@
+         </grid-div>
+       </div>
+     </grid-div>
+-    <grid-div>
++    <grid-div v-visible.s>
++      <div style="text-align: center;" v-width v-flex.center>
++        <a href="https://www.mollybears.org" rel="alternate" title="Molly Bears" target="_blank">
++          <br/>
++          <img src="https://www.mollybears.org/images/Logos/Molly-Bears-Logo-MD.png" alt="Molly Bears Logo" width="260"
++               height="82"/>
++        </a>
++      </div>
++      <table v-table>
++        <tbody v-grid.center.child-s>
++        <tr>
++          <td :style="tdStyle1" colspan="2">
++            <p :style="tdHeaderStyle"><strong>ORDER &amp; CONTACT INFO</strong></p>
++            <p :style="paddingLeft"><strong>Order Number:</strong> {{submission["Order Number"]}}</p>
++            <p :style="paddingLeft"><strong>Order Status:</strong> {{submission.Status}}</p>
++            <p :style="paddingLeft"><strong>First Name:</strong> {{submission["First Name"]}}</p>
++            <p :style="paddingLeft"><strong>Last Name:</strong> {{submission["Last Name"]}}</p>
++            <p :style="paddingLeft"><strong>Email:</strong> {{submission.Email}}</p>
++            <p :style="paddingLeft" v-show="submission.Phone !== ''"><strong>Phone:</strong>
++              {{submission.Phone}}</p>
++          </td>
++        </tr>
++        <tr>
++          <td :style="tdStyle1" colspan="2">
++            <p :style="tdHeaderStyle"><strong>ANGEL INFO</strong></p>
++            <p :style="paddingLeft" v-if="submission['Angels Name'] !== ''"><strong>Angels Name:</strong>
++              {{submission["Angels Name"]}}</p>
++            <p :style="paddingLeft"><strong>Angels Gender:</strong> {{submission['Angels Gender']}}</p>
++            <p :style="paddingLeft" v-if="submission['No Weight'] !== ''">
++              <strong>Size:</strong> {{submission["Bear Size"]}}
++            </p>
++            <p :style="paddingLeft" v-if="submission['Bear Size'] === ''">
++              <strong>Angels Weight in Pounds:</strong> {{submission["Angels Weight in Pounds"]}}
++            </p>
++            <p :style="paddingLeft" v-if="submission['Bear Size'] === ''">
++              <strong>Angels Weight in Ounces:</strong> {{submission["Angels Weight in Ounces"]}}
++            </p>
++            <p :style="paddingLeft"><strong>Angels Birthday:</strong> {{submission["Angels Birthday"]}}</p>
++            <p :style="paddingLeft"><strong>Angelversary Date:</strong> {{submission["Angelversary Date"]}}</p>
++          </td>
++        </tr>
++        <tr>
++          <td  :style="tdStyle1" colspan="2">
++            <p :style="tdHeaderStyle"><strong>SHIPPING ADDRESS</strong></p>
++            <p :style="paddingLeft"><strong>Address:</strong> {{submission.Address}}</p>
++            <p :style="paddingLeft"><strong>City:</strong> {{submission.City}}</p>
++            <p :style="paddingLeft">
++              <strong>State or Province:</strong>
++              {{submission["State or Province"]}} {{submission["Other State or Province"]}}
++            </p>
++            <p :style="paddingLeft"><strong>Zip Code:</strong> {{submission["Zip Code"]}}</p>
++            <p :style="paddingLeft"><strong>Country:</strong> {{submission.Country}}</p>
++          </td>
++        </tr>
++        <tr>
++          <td :style="tdStyle1" colspan="2">
++            <p :style="tdHeaderStyle"><strong>BEAR DETAILS</strong></p>
++            <p :style="paddingLeft" v-if="submission['Plain Bear'] === 'Yes'"><strong>Plain Bear
++              Wanted?:</strong> Yes</p>
++            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
++              <strong>Color(s):</strong>
++              {{submission["Bear Color"]}}
++            </p>
++            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
++              <strong>Theme(s):</strong>
++              {{submission["Bear Theme"]}}
++            </p>
++            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
++              <strong>Omit Item(s):</strong>
++              {{submission["Bear Omit"]}}
++            </p>
++            <p :style="paddingLeft" v-if="submission['Plain Bear'] !== 'Yes'">
++              <strong>Special Requests:</strong>
++              {{submission["Special Requests"]}}
++            </p>
++            <p :style="paddingLeft"><strong>Embroidery Wanted:</strong> {{submission["Embroidery 1"]}}</p>
++            <p :style="paddingLeft" v-if="isEmbroidery"><strong>Embroidery Name:</strong>
++              {{submission["Embroidery 1 Name"]}}</p>
++          </td>
++        </tr>
++        <tr>
++          <td :style="tdStyle1" colspan="2">
++            <p :style="tdHeaderStyle"><strong>MISC INFO</strong></p>
++            <p :style="paddingLeft" v-if="submission.Username !== ''">
++              <strong>Username:</strong> {{submission.Username}}
++            </p>
++            <p :style="paddingLeft" v-if="showAdditionalShippingPaid">
++              <strong>Additional Shipping Amount Paid:</strong>
++              <span> ${{submission["Additional Shipping Paid"]}} (USD)</span>
++            </p>
++            <p :style="paddingLeft" v-if="showAdditionalShippingPaid">
++                    <span>
++                      <strong>Transaction Paid Via: </strong>
++                    </span>{{$root.payment.cardType}} - {{$root.payment.transactionId}} - {{transactionDate}}</p>
++            <p :style="paddingLeft"><strong>Message/Note:</strong><span> {{submission.Message1}}</span></p>
++          </td>
++        </tr>
++        </tbody>
++      </table>
++    </grid-div>
++    <grid-div v-hidden.s>
+       <div v-width v-flex.around v-margin>
+         <uk-button
+-          type="secondary"
+-          size="large"
+-          @click.prevent.stop="$root.hideModal('#summarizedModal')"
+-          :disabled="loading"
++                type="secondary"
++                size="large"
++                @click.prevent.stop="$root.hideModal('#summarizedModal')"
++                :disabled="loading"
+         >
+           <uk-icon name="pencil-square-o"></uk-icon>
+           &nbsp; <span class="uk-hidden-small">Edit</span>
+@@ -139,6 +239,29 @@
+           <uk-icon name="save"></uk-icon>
+           &nbsp; <span class="uk-hidden-small">Save</span>
+         </uk-button>
++      </div>
++    </grid-div>
++    <grid-div v-visible.s>
++      <div v-width v-flex.around v-margin>
++        <group-buttons>
++          <uk-button
++                  type="secondary"
++                  size="large"
++                  @click.prevent.stop="$root.hideModal('#summarizedModal')"
++                  :disabled="loading"
++          >
++            <uk-icon name="pencil-square-o"></uk-icon>
++            &nbsp; <span>Edit</span>
++          </uk-button>
++          <uk-button size="large" @click="downloadPdf">
++            <uk-icon name="file-pdf-o"></uk-icon>
++            &nbsp; <span>PDF</span>
++          </uk-button>
++          <uk-button type="success" size="large" :disabled="loading" @click.prevent.stop="save">
++            <uk-icon name="save"></uk-icon>
++            &nbsp; <span>Save</span>
++          </uk-button>
++        </group-buttons>
+       </div>
+     </grid-div>
+   </div>
+@@ -150,10 +273,11 @@
+   import UkButton from "../UIKit/Buttons/Button";
+   import UkIcon from "../UIKit/UkIcon";
+   import {post} from "../../Helpers/XHR";
++  import GroupButtons from "../UIKit/Buttons/GroupButtons";
+ 
+   export default {
+     name: "SummarizedConfirmation",
+-    components: {UkIcon, UkButton, GridDiv},
++    components: {GroupButtons, UkIcon, UkButton, GridDiv},
+     props: {
+       submission: {
+         type: Object,
