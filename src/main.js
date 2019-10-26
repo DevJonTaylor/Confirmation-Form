@@ -17,6 +17,9 @@ import './Directives/V-UIkit/Modal';
 import './Directives/V-UIkit/Flex';
 import './Directives/V-UIkit/Container';
 import './Directives/V-UIkit/Grid';
+import './Directives/V-UIkit/Hidden';
+import './Directives/V-UIkit/Visible';
+import './Directives/V-UIkit/Table';
 import './Directives/HrefVoid';
 import {get as getToken} from "./Helpers/XHR";
 import * as Sentry from '@sentry/browser';
@@ -27,13 +30,13 @@ Sentry.init({
   integrations: [new Integrations.Vue({Vue, attachProps: true})],
 });
 
-//const origin = 'http://shellsu.local/';
 const origin = '/confirm-api/';
 const token = window.location.search.substr(7);
 
 Vue.config.productionTip = false;
 Vue.prototype.token = token;
-Vue.prototype.origin = origin;
+Vue.prototype.origin = 'https://mollybears.org/confirm-api';
+// Vue.prototype.origin = `${origin}${token}`;
 Vue.prototype.apiURL = `${origin}?token=${token}`;
 window.Vue = Vue;
 

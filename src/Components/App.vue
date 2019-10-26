@@ -72,8 +72,8 @@
       </uk-modal>
       <uk-modal id="submitModal">
         <modal-dialog>
-          <modal-header v-flex:f.center>
-            <h3 v-show="!loading" class="uk-h3" v-txt.danger v-margin.no:top>{{loadingHeader}}</h3>
+          <modal-header v-flex:f.center.col>
+            <h3 class="uk-h3" v-txt.danger v-margin.no:top>{{loadingHeader}}</h3>
             <hollow-dots-spinner
               v-show="loading"
               :animation-duratio="1000"
@@ -96,9 +96,9 @@
         </modal-dialog>
       </uk-modal>
       <uk-modal id="summarizedModal">
-        <modal-dialog v-modal.full class="mb-height-100">
+        <modal-dialog v-modal.full >
           <modal-header>
-            <h3 class="uk-h3" v-txt:center.primary>Summarized Confirmation</h3>
+            <h3 class="uk-h3" v-txt:center.primary v-margin.no>Summarized Confirmation</h3>
           </modal-header>
           <summarized-confirmation :submission="$root.submission"></summarized-confirmation>
         </modal-dialog>
@@ -131,7 +131,7 @@
 
   import {set} from 'lodash';
   import Loader from "./Loader";
-  import SummarizedConfirmation from "./Form/SummarizedConfirmation";
+  import SummarizedConfirmation from "./Sections/SummarizedConfirmation";
   import AlertClose from "./UIKit/Alert/Close";
   import Danger from "./UIKit/Alert/Danger";
   import {post, get} from "../Helpers/XHR";
@@ -167,7 +167,7 @@
       return {
         loading: false,
         loadingMessage: [],
-        loadingHeader: ''
+        loadingHeader: 'Processing Form'
       }
     },
     methods: {
@@ -397,6 +397,11 @@
 </script>
 
 <style lang="scss">
+  @media (min-width: 768px) and (max-width: 959px) {
+    .uk-modal-dialog-blank {
+      height: 100%;
+    }
+  }
   h6 {
     font-size: 17px;
     line-height: 23px;
@@ -453,7 +458,6 @@
 
   .mb-height-100 {
     height: 100%;
-    position: fixed;
   }
 
   .uk-close {
