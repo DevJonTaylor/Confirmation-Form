@@ -10,7 +10,7 @@
       </div>
       <div v-width>
         <grid-div v-container.center>
-          <div v-width v-flex.center>
+          <div v-width v-flex.5>
             <div v-width.l:2-3.m.s>
               <div style="text-align: center;">
                 <div style="margin: 15px; padding: 15px; background: #f8f9fb; color: #555454;">
@@ -22,7 +22,7 @@
               </div>
             </div>
           </div>
-          <div v-width v-flex.center>
+          <div v-width v-flex.5>
             <div v-width.l:2-3.m>
               <table cellpadding="8" cellspacing="0"
                      style="width: 100%; vertical-align: top; font-size: 13px; line-height: 13px;">
@@ -235,16 +235,21 @@
           <uk-icon name="file-pdf-o"></uk-icon>
           &nbsp; <span class="uk-hidden-small">Download PDF</span>
         </uk-button>
-        <uk-button type="success" size="large" :disabled="loading" @click.prevent.stop="save">
+        <uk-button
+            type="success" size="large"
+            :disabled="loading"
+            @click.prevent.stop="save"
+        >
           <uk-icon name="save"></uk-icon>
           &nbsp; <span class="uk-hidden-small">Save</span>
         </uk-button>
       </div>
     </grid-div>
     <grid-div v-visible.s>
-      <div v-width v-flex.around v-margin>
+      <div v-width v-flex.5 v-margin>
         <group-buttons>
           <uk-button
+
                   type="secondary"
                   size="large"
                   @click.prevent.stop="$root.hideModal('#summarizedModal')"
@@ -300,15 +305,16 @@
           .then(data => this.$root.setSubmission(data))
           .then(() => {
             let source = document.querySelector('#pdf').innerHTML;
-            post(this.$root.apiURL, {
+
+            return post(this.$root.apiURL, {
               email: {
                 id: this.$root.submission.SubmissionId,
                 to: this.$root.personal.email,
                 body: this.htmlEntities(source)
               }
             });
-          })
-          .catch(() => window.location.reload())
+          }).then(() => this.$root.saved = true)
+          .catch(err => console.log(err));
       },
       htmlEntities(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

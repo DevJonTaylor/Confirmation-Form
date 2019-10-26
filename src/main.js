@@ -48,6 +48,7 @@ let waitForElement = setInterval(() => {
     window.VueComponent = new Vue({
       components: {Loader, App},
       data: {
+        saved: false,
         submission: {},
         invalidToken: false,
         loading: true,
