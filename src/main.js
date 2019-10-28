@@ -32,8 +32,8 @@ Sentry.init({
   integrations: [new Integrations.Vue({Vue, attachProps: true})],
 });
 
-//const origin = '/confirm-api/';
-const origin = 'https://mollybears.org/confirm-api';
+const origin = '/confirm-api/';
+//const origin = 'https://mollybears.org/confirm-api';
 const token = window.location.search.substr(7);
 
 Vue.config.productionTip = false;
