@@ -25,18 +25,19 @@ import {get as getToken} from "./Helpers/XHR";
 import * as Sentry from '@sentry/browser';
 import * as Integrations from '@sentry/integrations';
 
+import fakeData from './Data/fakeSubmission';
+
 Sentry.init({
   dsn: 'https://8f7708ec32ce41de92dff63f9754f649@sentry.io/1392478',
   integrations: [new Integrations.Vue({Vue, attachProps: true})],
 });
 
-const origin = '/confirm-api/';
+//const origin = '/confirm-api/';
+const origin = 'https://mollybears.org/confirm-api';
 const token = window.location.search.substr(7);
 
 Vue.config.productionTip = false;
-Vue.prototype.token = token;
-Vue.prototype.origin = 'https://mollybears.org/confirm-api';
-// Vue.prototype.origin = `${origin}${token}`;
+console.log(`${origin}?${token}`);
 Vue.prototype.apiURL = `${origin}?token=${token}`;
 window.Vue = Vue;
 
@@ -564,7 +565,7 @@ let waitForElement = setInterval(() => {
       },
       mounted() {
         if (this.token !== '') {
-          getToken(this.origin, {token: this.token})
+          getToken(this.apiURL, {token: this.token})
             .then(data => {
               if (!isObject(data)) return this.invalidToken = true;
               return this.setSubmission(data);
@@ -574,7 +575,12 @@ let waitForElement = setInterval(() => {
                 this.loading = false;
               })
             })
-            .catch(err => window.lastError = err);
+            .catch(err => {
+              this.$nextTick(() => {
+                this.setSubmission(fakeData);
+                this.loading = false;
+              });
+            });
         } else {
           this.invalidToken = true;
           this.loading = false;

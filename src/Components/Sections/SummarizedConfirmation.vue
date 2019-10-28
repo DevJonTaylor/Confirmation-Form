@@ -223,10 +223,11 @@
     <grid-div v-hidden.s>
       <div v-width v-flex.around v-margin>
         <uk-button
-                type="secondary"
-                size="large"
-                @click.prevent.stop="$root.hideModal('#summarizedModal')"
-                :disabled="loading"
+          type="secondary"
+          size="large"
+          @click.prevent.stop="$root.hideModal('#summarizedModal')"
+          :disabled="loading"
+          v-show="!$root.saved"
         >
           <uk-icon name="pencil-square-o"></uk-icon>
           &nbsp; <span class="uk-hidden-small">Edit</span>
@@ -236,6 +237,7 @@
           &nbsp; <span class="uk-hidden-small">Download PDF</span>
         </uk-button>
         <uk-button
+            v-show="!$root.saved"
             type="success" size="large"
             :disabled="loading"
             @click.prevent.stop="save"
@@ -296,25 +298,27 @@
     },
     methods: {
       save() {
-        let save = {
-          SubmissionId: this.$root.submission.SubmissionId,
-          changes: this.$root.changes
-        };
-
-        post(this.$root.apiURL, {save})
+        this.loading = true;
+        post(this.apiURL, {save: {
+            SubmissionId: this.$root.submission.SubmissionId
+          }})
           .then(data => this.$root.setSubmission(data))
           .then(() => {
             let source = document.querySelector('#pdf').innerHTML;
 
-            return post(this.$root.apiURL, {
+            return post(this.apiURL, {
               email: {
                 id: this.$root.submission.SubmissionId,
                 to: this.$root.personal.email,
                 body: this.htmlEntities(source)
               }
             });
-          }).then(() => this.$root.saved = true)
-          .catch(err => console.log(err));
+          }).then(() => {
+            this.$root.saved = true;
+        }).catch(err => {
+          console.log(err);
+          this.loading = false;
+        });
       },
       htmlEntities(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

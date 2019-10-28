@@ -353,7 +353,7 @@
             if (typeof (data) !== 'object' && data !== true) {
               return this.internalError();
             } else if (data === true) {
-              return get(this.$root.origin, {token: this.$root.token})
+              return get(this.apiURL, {token: this.$root.token})
             } else {
               return this.$root.setSubmission(data)
             }
