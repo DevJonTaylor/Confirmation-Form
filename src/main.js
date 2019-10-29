@@ -4,6 +4,7 @@ import Loader from './Components/Loader';
 import {isObject, get} from 'lodash';
 import moment from 'moment';
 import MoneyFormation from "./Helpers/MoneyFormation";
+import Submission from './Data/FakeSubmission';
 
 // directives
 import './Directives/V-UIkit/Form';
@@ -563,6 +564,8 @@ let waitForElement = setInterval(() => {
         return h(App);
       },
       mounted() {
+        return this.setSubmission(Submission)
+          .then(() => this.$nextTick(() => this.loading = false));
         if (this.token !== '') {
           getToken(this.origin, {token: this.token})
             .then(data => {

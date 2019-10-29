@@ -20,7 +20,7 @@
         ></form-input-text>
       </div>
       <div v-width:1-3 v-margin:top class="uk-hidden-touch">
-        <h4 class="uk-h4 mb-line-height-2" v-txt:center>Order Number #{{$root.personal.orderNumber}}</h4>
+        <h4 class="uk-h4 mb-line-height-2" v-txt:justify v-margin:top>Order Number #{{$root.personal.orderNumber}}</h4>
       </div>
       <div v-width.l:1-3.m:1-2.s:1-1 v-margin:top>
         <form-input-text
@@ -54,6 +54,6 @@
 
 <style>
   .mb-line-height-2 {
-    line-height: 2em;
+    line-height: 27px;
   }
 </style>
