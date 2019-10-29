@@ -167,7 +167,7 @@
       return {
         loading: false,
         loadingMessage: [],
-        loadingHeader: 'Processing Form'
+        loadingHeader: 'Blah'
       }
     },
     methods: {
@@ -327,6 +327,7 @@
       },
       onSubmit() {
         this.loading = true;
+        this.loadingHeader = 'Processing Form';
 
         if (!this.validation())
           return this.loading = false;
@@ -392,6 +393,11 @@
         if (scrollToSelector) this.scrollToThisSelector(`[name*="${scrollToSelector}"]`);
         return false;
       }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.loadingHeader = 'Processing Form';
+      })
     }
   }
 </script>
