@@ -223,6 +223,7 @@
     <grid-div v-hidden.s>
       <div v-width v-flex.around v-margin>
         <uk-button
+                v-if="!$root.saved"
                 type="secondary"
                 size="large"
                 @click.prevent.stop="$root.hideModal('#summarizedModal')"
@@ -231,11 +232,11 @@
           <uk-icon name="pencil-square-o"></uk-icon>
           &nbsp; <span class="uk-hidden-small">Edit</span>
         </uk-button>
-        <uk-button size="large" @click="downloadPdf">
+        <uk-button size="large" v-flex.center.middle="$root.saved" @click="downloadPdf">
           <uk-icon name="file-pdf-o"></uk-icon>
           &nbsp; <span class="uk-hidden-small">Download PDF</span>
         </uk-button>
-        <uk-button type="success" size="large" :disabled="loading" @click.prevent.stop="save">
+        <uk-button type="success" size="large" v-if="!$root.saved" :disabled="loading" @click.prevent.stop="save">
           <uk-icon name="save"></uk-icon>
           &nbsp; <span class="uk-hidden-small">Save</span>
         </uk-button>
@@ -245,19 +246,20 @@
       <div v-width v-flex.around v-margin>
         <group-buttons>
           <uk-button
-                  type="secondary"
-                  size="large"
-                  @click.prevent.stop="$root.hideModal('#summarizedModal')"
-                  :disabled="loading"
+                  v-if="!$root.saved"
+              type="secondary"
+              size="large"
+              @click.prevent.stop="$root.hideModal('#summarizedModal')"
+              :disabled="loading"
           >
             <uk-icon name="pencil-square-o"></uk-icon>
             &nbsp; <span>Edit</span>
           </uk-button>
-          <uk-button size="large" @click="downloadPdf">
+          <uk-button size="large" v-flex.center.middle="$root.saved" @click="downloadPdf">
             <uk-icon name="file-pdf-o"></uk-icon>
             &nbsp; <span>PDF</span>
           </uk-button>
-          <uk-button type="success" size="large" :disabled="loading" @click.prevent.stop="save">
+          <uk-button type="success" size="large" v-if="!$root.saved" :disabled="loading" @click.prevent.stop="save">
             <uk-icon name="save"></uk-icon>
             &nbsp; <span>Save</span>
           </uk-button>
@@ -290,25 +292,27 @@
       }
     },
     methods: {
-      save() {
-        let save = {
-          SubmissionId: this.$root.submission.SubmissionId,
-          changes: this.$root.changes
+      async sendEmail() {
+        let source = document.querySelector('#pdf').innerHTML;
+        let email = {
+          id: this.$root.submission.SubmissionId,
+          to: this.$root.personal.email,
+          body: this.htmlEntities(source)
         };
 
-        post(this.$root.apiURL, {save})
+        return await post(this.apiURL, {email});
+      },
+      save() {
+        let save = { SubmissionId: this.$root.submission.SubmissionId };
+        this.loading = true;
+
+        post(this.apiURL, {save})
           .then(data => this.$root.setSubmission(data))
+          .then(() => this.sendEmail())
           .then(() => {
-            let source = document.querySelector('#pdf').innerHTML;
-            post(this.$root.apiURL, {
-              email: {
-                id: this.$root.submission.SubmissionId,
-                to: this.$root.personal.email,
-                body: this.htmlEntities(source)
-              }
-            });
+            this.$root.saved = true
           })
-          .catch(() => window.location.reload())
+          .catch(() => window.location.reload());
       },
       htmlEntities(str) {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

@@ -30,13 +30,13 @@ Sentry.init({
   integrations: [new Integrations.Vue({Vue, attachProps: true})],
 });
 
-const origin = '/confirm-api/';
+//const origin = '/confirm-api/';
+const origin = 'https://mollybears.org/confirm-api';
 const token = window.location.search.substr(7);
 
 Vue.config.productionTip = false;
 Vue.prototype.token = token;
-Vue.prototype.origin = 'https://mollybears.org/confirm-api';
-// Vue.prototype.origin = `${origin}${token}`;
+Vue.prototype.origin = `${origin}`;
 Vue.prototype.apiURL = `${origin}?token=${token}`;
 window.Vue = Vue;
 
@@ -48,6 +48,7 @@ let waitForElement = setInterval(() => {
     window.VueComponent = new Vue({
       components: {Loader, App},
       data: {
+        saved: false,
         submission: {},
         invalidToken: false,
         loading: true,
