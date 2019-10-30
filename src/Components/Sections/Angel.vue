@@ -292,37 +292,11 @@
         return id;
       },
       trimesterValueChanges() {
-        let noWeight = this.$root.angel.trimester !== this.submission["No Weight"] !== '';
-        let pounds = this.$root.angel.pounds;
-        let ounces = this.$root.angel.ounces;
-        let smallValue = ' I would like a smaller Molly Bear that represents the size of my angel.';
-        let largeValue = ' I would like a Molly Bear big enough to cuddle and understand the weight may not necessarily match my angel.';
-        let small = this.$root.angel.bearSize === smallValue;
-        let large = this.$root.angel.bearSize === largeValue;
-        let msg = '';
-        let revert = [];
-        let save = [];
-
-        if (noWeight && (pounds !== '' || ounces !== '') && !this.$root.messages.confirm.noWeight) {
-          msg = 'By checking this box you will erase the weight you have selected in pounds and ounces.';
-          revert = [[this.$root, 'angel.trimester', false], [this.$root, 'messages.confirm.noWeight', false]];
-          save = [[this.$root, 'angel.pounds', ''], [this.$root, 'angel.ounces', '']];
-        } else if (noWeight && (small || large) && !this.$root.messages.confirm.noWeight) {
-          msg = 'By removing this box you will erase the current selection of your Bear\'s Size.';
-          revert = [[this.$root, 'angel.trimester', true]];
-          save = [[this.$root, 'angel.bearSize', '']];
-        }
-
-        if (revert.length > 0) {
-          this.$root.messages.confirm.noWeight = true;
-          this.$root.confirmMessage(msg, revert, save);
+        if(this.$root.angel.trimester) {
+          this.$root.angel.bearSize = '';
         } else {
-          if (!this.$root.angel.trimester) {
-            set(this.$root, 'angel.bearSize', '');
-          } else {
-            set(this.$root, 'angel.pounds', '');
-            set(this.$root, 'angel.ounces', '');
-          }
+          this.$root.angel.ounces = '';
+          this.$root.angel.pounds = '';
         }
       }
     },
